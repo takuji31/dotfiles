@@ -38,6 +38,7 @@
 [ghq]
     root = ~/.ghq
     root = ~/.go/src
+    root = ~/.homesick/repos/
 [github]
     user = takuji31
 [hub]
