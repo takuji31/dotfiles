@@ -51,3 +51,20 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*:default' menu select=1
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
+
+autoload -Uz compinit
+compinit
+
+#history
+export HISTFILE=$HOME/.zsh_history
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+
+ZSHHOME="${HOME}/.zsh"
+
+if [ -d $ZSHHOME -a -r $ZSHHOME -a -x $ZSHHOME ]; then
+    for i in $ZSHHOME/*; do
+        [[ ${i##*/} = *.zsh ]] &&
+            [ \( -f $i -o -h $i \) -a -r $i ] && . $i
+    done
+fi
