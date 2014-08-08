@@ -1,0 +1,44 @@
+[alias]
+    ci = commit -v
+    co = checkout
+    delete-merged-branches = !git branch --merged | grep -v '^*' | xargs -I % git branch -d %
+    di = diff
+    graph = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%cn] %Cgreen%d%Creset %s' --all --date=short
+    logg = log --stat --pretty=format:'%Cblue%h %Cgreen%ar %Cred%an %Creset%s %Cred%d'
+    new = whatchanged HEAD@{1}..HEAD --reverse --stat
+    st = status
+[color]
+    branch = auto
+    diff = auto
+    status = auto
+    ui = true
+[core]
+    attributesfile = ~/.gitattributes
+    editor = "vim \"+e ++enc=utf-8\"" # force encoding utf-8 in log message.
+    excludesfile = ~/.gitignore
+    pager = lv
+    trustctime = false
+[diff]
+    algorithm = histogram
+    suppressBlankEmpty = true
+[include]
+    path = ~/.gitconfig.local
+[pager]
+    diff = diff-highlight | less
+    log = diff-highlight | less
+    show = diff-highlight | less
+[user]
+    email = takuji31@gmail.com
+    name = Takuji Nishibayashi
+
+[merge "mergepbx"]
+    driver = /usr/local/bin/mergepbx %O %A %B
+    name = XCode project files merger
+
+[ghq]
+    root = ~/.ghq
+    root = ~/.go/src
+[github]
+    user = takuji31
+[hub]
+    protocol = https
