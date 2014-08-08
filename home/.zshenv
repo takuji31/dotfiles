@@ -5,6 +5,7 @@ typeset -U path
 path=(
 "/Applications/Sublime Text.app/Contents/SharedSupport/bin"(N-/)
 /Applications/MacVim.app/Contents/MacOS(N-/)
+$HOME/.anyenv/bin(N-/)
 $HOME/local/bin(N-/)
 $HOME/bin(N-/)
 /usr/local/bin(N-/)
@@ -38,6 +39,11 @@ if [ -x "`which go`" ]; then
     $GOROOT/bin(N-/)
     $path
     )
+fi
+
+#anyenv
+if [ -d $HOME/.anyenv ] ; then
+    eval "$(anyenv init -)"
 fi
 
 #source local env
