@@ -36,6 +36,7 @@ NeoBundle 'kannokanno/previm'
 NeoBundle 'dgryski/vim-godef'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'nsf/gocode', {'rtp': 'vim/'}
+NeoBundle 'editorconfig/editorconfig-vim'
 
 "colorscheme
 NeoBundle 'w0ng/vim-hybrid'
