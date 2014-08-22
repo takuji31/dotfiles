@@ -21,8 +21,6 @@
 [diff]
     algorithm = histogram
     suppressBlankEmpty = true
-[include]
-    path = ~/.gitconfig.local
 [pager]
     diff = diff-highlight | less
     log = diff-highlight | less
@@ -45,3 +43,5 @@
     protocol = https
 [push]
 	default = simple
+[include]
+    path = ~/.gitconfig.local

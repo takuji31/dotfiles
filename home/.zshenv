@@ -31,6 +31,11 @@ export MYSQL_PS1='\U DB:\d DATE: \D MySQL: \v  \n>\_'
 
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
+#anyenv
+if [ -d $HOME/.anyenv ] ; then
+    eval "$(anyenv init -)"
+fi
+
 if [ -x "`which go`" ]; then
     export GOROOT=`go env GOROOT`
     export GOPATH=$HOME/.go
@@ -39,11 +44,6 @@ if [ -x "`which go`" ]; then
     $GOROOT/bin(N-/)
     $path
     )
-fi
-
-#anyenv
-if [ -d $HOME/.anyenv ] ; then
-    eval "$(anyenv init -)"
 fi
 
 #source local env
