@@ -32,7 +32,7 @@ export MYSQL_PS1='\U DB:\d DATE: \D MySQL: \v  \n>\_'
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 #anyenv
-if [ -d $HOME/.anyenv ] ; then
+if [[ -d $HOME/.anyenv ]] ; then
     eval "$(anyenv init -)"
 fi
 
