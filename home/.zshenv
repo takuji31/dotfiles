@@ -8,6 +8,7 @@ path=(
 $HOME/.anyenv/bin(N-/)
 $HOME/local/bin(N-/)
 $HOME/bin(N-/)
+/usr/local/go/bin(N-/)
 /usr/local/bin(N-/)
 /usr/sbin(N-/)
 /usr/bin(N-/)
