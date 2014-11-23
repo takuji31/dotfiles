@@ -43,4 +43,4 @@ NeoBundle 'w0ng/vim-hybrid'
 
 
 NeoBundle 'sudo.vim'
-
+call neobundle#end()
