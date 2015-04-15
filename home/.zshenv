@@ -5,6 +5,7 @@ typeset -U path
 path=(
 "/Applications/Sublime Text.app/Contents/SharedSupport/bin"(N-/)
 /Applications/MacVim.app/Contents/MacOS(N-/)
+$HOME/.composer/vendor/bin/(N-/)
 $HOME/.anyenv/bin(N-/)
 $HOME/local/bin(N-/)
 $HOME/bin(N-/)
