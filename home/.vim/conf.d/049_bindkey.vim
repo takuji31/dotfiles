@@ -18,8 +18,8 @@ vnoremap gc :<C-u>normal gc<Enter>
 onoremap gc :<C-u>normal gc<Enter>
 
 "swap ; and :
-noremap ; :
-noremap : ;
+"noremap ; :
+"noremap : ;
 
 inoremap {{ {}<LEFT>
 inoremap [[ []<LEFT>
