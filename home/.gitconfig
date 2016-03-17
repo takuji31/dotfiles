@@ -1,7 +1,7 @@
 [alias]
     ci = commit -v
     co = checkout
-    delete-merged-branches = !git branch --merged | grep -v '^*' | xargs -I % git branch -d %
+    delete-merged-branches = !git branch --merged | grep -v master | grep -v '^*' | xargs -I % git branch -d %
     di = diff
     graph = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%cn] %Cgreen%d%Creset %s' --all --date=short
     logg = log --stat --pretty=format:'%Cblue%h %Cgreen%ar %Cred%an %Creset%s %Cred%d'
