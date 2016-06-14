@@ -1,4 +1,4 @@
-nnoremap <silent> ,f  :<C-u>Unite -buffer-name=git-ls git<CR>
+nnoremap <silent> ,f  :<C-u>Unite -buffer-name=git-ls file_rec/git <CR>
 nnoremap <silent> ,d  :<C-u>Unite -buffer-name=file file_rec/async<CR>
 nnoremap <silent> ,b  :<C-u>Unite -buffer-name=myunite buffer file_mru file/new directory/new<CR>
 nnoremap <silent> ,n  :<C-u>UniteWithBufferDir -buffer-name=new file/new directory/new<CR>
