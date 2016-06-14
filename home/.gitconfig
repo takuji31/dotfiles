@@ -34,10 +34,10 @@
     name = XCode project files merger
 
 [ghq]
+    root = ~/project
     root = ~/.ghq
     root = ~/.homesick/repos
     root = ~/IdeaProjects
-    root = ~/project
 [github]
     user = takuji31
 [hub]
