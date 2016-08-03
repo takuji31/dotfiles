@@ -73,3 +73,7 @@ if [ -d $ZSHHOME -a -r $ZSHHOME -a -x $ZSHHOME ]; then
             [ \( -f $i -o -h $i \) -a -r $i ] && . $i
     done
 fi
+
+
+#source local rc
+[[ -e $HOME/.zshrc_local ]] && source $HOME/.zshrc_local
