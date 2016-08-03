@@ -1,5 +1,4 @@
 NeoBundle 'Shougo/unite-outline'
-NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'Shougo/neocomplete.vim'
@@ -37,6 +36,7 @@ NeoBundle 'dgryski/vim-godef'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'nsf/gocode', {'rtp': 'vim/'}
 NeoBundle 'editorconfig/editorconfig-vim'
+NeoBundle 'itchyny/lightline.vim'
 
 "colorscheme
 NeoBundle 'w0ng/vim-hybrid'
