@@ -1,0 +1,257 @@
+#TODO write abbr
+snippet     pscript
+prev_word '^'
+	#!/usr/bin/env perl
+	use strict;
+	use warnings;
+	use 5.010_001;
+	${0}
+
+snippet     ps18
+prev_word '^'
+	#!/usr/bin/env perl
+	use 5.018_001;
+	use warnings;
+	${0}
+
+snippet     pkg
+prev_word '^'
+	package `PerlPackageName()`;
+	use strict;
+	use warnings;
+	use utf8;
+	${0}
+	1;
+
+snippet     pkg18
+prev_word '^'
+	package `PerlPackageName()`;
+	use 5.018_001;
+	use warnings;
+	${0}
+	1;
+
+snippet     strict
+prev_word '^'
+	use 5.012_001;
+	use warnings;
+	${0}
+
+snippet     str18
+prev_word '^'
+	use 5.018_001;
+	use warnings;
+	${0}
+
+snippet     constant
+prev_word '^'
+	use constant {
+		${1} => ${2},
+	};${0}
+
+snippet     lmy
+	my ($${1:class}, ${2}) = ${3:@_};${0}
+
+snippet     smy
+	my $${1:self} = shift;${0}
+
+snippet     hmy
+	my $$2 = $${1:self}->{${2}};${0}
+
+snippet     sub
+	sub ${1} {
+		my ($${2:class}, ${3}) = @_;
+		${4}
+	}
+
+snippet     ssub
+	sub ${1} {
+		my $${2:class} = shift;
+		${3}
+	}
+
+snippet     vsub
+prev_word '^'
+	sub ${1} {
+		state $validator = Data::Validator->new(
+			${2}
+		)->with(qw/Method${3}/);
+		my ($${4:class}, $args) = $validator->validate(@_);
+		${5}
+	}
+
+snippet     vfsub
+prev_word '^'
+	sub ${1} {
+		state $validator = Data::Validator->new(
+			${2}
+		)${3:->with(qw/${4\}/)};
+		my $args = $validator->validate(@_);
+		${5}
+	}
+snippet     dv
+prev_word '^'
+	state $validator = Data::Validator->new(
+		${1}
+	)->with(qw/Method${2}/);
+	my ($${3:class}, $args) = $validator->validate(@_);
+
+snippet     fdv
+prev_word '^'
+	state $validator = Data::Validator->new(
+		${1}
+	)${2:->with(qw/${3\}/)};
+	my ($${4:class}, $args) = $validator->validate(@_);
+
+snippet     import
+prev_word '^'
+	sub import {
+		my $class  = shift;
+		my $caller = caller;
+		${1}
+	}
+
+
+snippet     try
+prev_word '^'
+	try {
+		${1}
+	}${0}
+
+snippet     catch
+prev_word '^'
+	'${1:Some::Exception}' => sub {
+		${2}
+	}${3:,}
+
+#For WAF
+snippet     req
+prev_word '^'
+	$${1:c}->req->${0}
+
+snippet     rp
+prev_word '^'
+	my $$2 = $${1:c}->req->param("${2}");${0}
+
+snippet     rd
+prev_word '^'
+	$${1:c}->redirect("${2}");${0}
+
+snippet     st
+prev_word '^'
+	$${1:self}->stash->{${2}} = ${3};${0}
+
+snippet     ns
+prev_word '^'
+	`PerlPackageName()`${0}
+#For container
+#TODO container
+
+#Fot test
+snippet     test
+prev_word '^'
+	use strict;
+	use warnings;
+	use utf8;
+	use Test::More;
+	${0}
+	done_testing;
+
+snippet     testutil
+prev_word '^'
+	use strict;
+	use warnings;
+	use utf8;
+	use t::Util;
+	use Test::More;
+	${0}
+	done_testing;
+
+snippet     testfull
+prev_word '^'
+	use strict;
+	use warnings;
+	use utf8;
+	use t::Util;
+	use Test::More;
+	use Test::Exception;
+
+	test_service {
+		my ($c, ) = @_;
+		${0}
+	};
+
+	done_testing;
+
+snippet     subtest
+prev_word '^'
+	subtest "${1}" => sub {
+		${2}
+	};
+
+snippet     test_service
+prev_word '^'
+	test_service {
+		my ($c, ) = @_;
+		${0}
+	};
+
+#For Amon2
+snippet     any
+prev_word '^'
+	any '${1}' => sub {
+		my ($c, $args) = @_;
+		${0}
+		$c->render('${2}');
+	};
+
+snippet     get
+prev_word '^'
+	get '${1}' => sub {
+		my ($c, $args) = @_;
+		${0}
+		$c->render('${2}');
+	};
+
+snippet     post
+prev_word '^'
+	post '${1}' => sub {
+		my ($c, $args) = @_;
+		${0}
+		$c->render('${2}');
+	};
+
+snippet     many
+prev_word '^'
+	any [qw/${1}/] => '${2}' => sub {
+		my ($c, $args) = @_;
+		${0}
+		$c->render('${2}');
+	};
+
+snippet     modulebuild
+abbr        Module::Build template
+prev_word   '^'
+	use strict;
+	use warnings;
+	use Module::Build;
+	my $build = Module::Build->new(
+		dist_author => 'Nishibayashi Takuji <takuji31@gmail.com>',
+		dist_abstract => '${1}',
+		license     => 'perl',
+		module_name => '${2}',
+		configure_requires => {'Module::Build' => '0.038'},
+		requires => {
+			${3}
+		},
+		build_requires => {
+			${4}
+		},
+		test_files => (-d '.git/' || $ENV{RELEASE_TESTING}) ? 't/ xt/' : 't/',
+		recursive_test_files => 1,
+
+		create_readme => 1,
+		create_license => 1,
+		create_makefile_pl => 'small',
+	);
+	$build->create_build_script();
