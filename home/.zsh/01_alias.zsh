@@ -20,3 +20,7 @@ alias zmv='noglob zmv -W'
 function gcm() {
     git commit -m $*
 }
+
+if [ -e `which nvim` ]; then
+    alias vim=nvim
+fi
