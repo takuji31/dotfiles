@@ -20,53 +20,70 @@ call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
 " Add or remove your plugins here:
 
+" dein
 call dein#add('haya14busa/dein-command.vim')
 
 
+" unite
 call dein#add('Shougo/unite.vim')
 call dein#add('sgur/unite-git_grep')
 call dein#add('tsukkee/unite-help')
 call dein#add('ujihisa/unite-colorscheme')
+call dein#add('Shougo/neomru.vim')
+call dein#add('Shougo/neoyank.vim')
+call dein#add('Shougo/unite-outline')
 
+" completion
 call dein#add('Shougo/deoplete.nvim')
+call dein#add('c9s/perlomni.vim')
 
+" snippets
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
 
-call dein#add('Shougo/neomru.vim')
-call dein#add('Shougo/neoyank.vim')
-
-call dein#add('Shougo/unite-outline')
-call dein#add('mattn/emmet-vim')
-call dein#add('Shougo/context_filetype.vim')
-call dein#add('Shougo/vimfiler.vim')
-call dein#add('othree/html5.vim')
-call dein#add('c9s/perlomni.vim')
-call dein#add('takuji31/xslate-vim')
-call dein#add('thinca/vim-qfreplace')
-call dein#add('thinca/vim-ref')
+" git
 call dein#add('tpope/vim-fugitive')
+call dein#add('mattn/gist-vim')
+call dein#add('gregsexton/gitv')
+
+" editing
+call dein#add('mattn/emmet-vim')
+call dein#add('thinca/vim-qfreplace')
 call dein#add('scrooloose/nerdcommenter.git')
 call dein#add('othree/eregex.vim')
-call dein#add('tyru/open-browser.vim')
-call dein#add('thinca/vim-quickrun')
-call dein#add('mattn/gist-vim')
 call dein#add('h1mesuke/vim-alignta')
 call dein#add('AndrewRadev/switch.vim')
-call dein#add('Lokaltog/vim-easymotion')
 call dein#add('kana/vim-smartchr')
-call dein#add('rking/ag.vim')
-call dein#add('gregsexton/gitv')
-call dein#add('tpope/vim-abolish')
-call dein#add('modsound/gips-vim')
+call dein#add('kannokanno/previm')
+
+" help
+call dein#add('thinca/vim-ref')
 call dein#add('rizzatti/funcoo.vim')
 call dein#add('rizzatti/dash.vim')
-call dein#add('kannokanno/previm')
+
+" tools
+call dein#add('tyru/open-browser.vim')
+call dein#add('thinca/vim-quickrun')
+call dein#add('Shougo/vimfiler.vim')
+call dein#add('Lokaltog/vim-easymotion')
+call dein#add('rking/ag.vim')
+call dein#add('editorconfig/editorconfig-vim')
+call dein#add('tpope/vim-abolish')
+call dein#add('modsound/gips-vim')
+
+
+" filetype
+call dein#add('Shougo/context_filetype.vim')
+call dein#add('othree/html5.vim')
+call dein#add('takuji31/xslate-vim')
+
+
+" golang
 call dein#add('dgryski/vim-godef')
 call dein#add('fatih/vim-go')
 call dein#add('nsf/gocode', {'rtp': 'vim/'})
-call dein#add('editorconfig/editorconfig-vim')
 
+" display
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 
