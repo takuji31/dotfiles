@@ -1,3 +1,4 @@
+
 function! IsInsideWorkTree()
     let l:is_inside = system('git rev-parse --is-inside-work-tree')
     return l:is_inside == "true\n" ? 1 : 0
@@ -8,6 +9,14 @@ function! UniteFileRecSource()
         Unite -buffer-name=git-ls file_rec/git:--cached:--others:--exclude-standard
     else
         Unite -buffer-name=file file_rec/neovim
+    endif
+endfunction
+
+function! UniteFileGrepSource()
+    if IsInsideWorkTree()
+        Unite -buffer-name=git-grep grep/git:/:--cached
+    else
+        Unite -buffer-name=grep grep:.
     endif
 endfunction
 
@@ -28,9 +37,11 @@ nnoremap <silent> [unite]h  :<C-u>Unite -buffer-name=help help<CR>
 nnoremap <silent> [unite]l  :<C-u>Unite -buffer-name=lines line<CR>
 nnoremap <silent> [unite]n  :<C-u>Unite -buffer-name=menu menu:shortcut<CR>
 nnoremap <silent> [unite]v  :<C-u>Unite -buffer-name=mapping mapping<CR>
-nnoremap <silent> [unite]g  :<C-u>Unite -buffer-name=grep grep:.<CR>
+nnoremap <silent> [unite]g  :<C-u>call UniteFileGrepSource()<CR>
 nnoremap <silent> [unite]c  :<C-u>UniteWithBufferDir -buffer-name=file file<CR>
 nnoremap <silent> [unite]m  :<C-u>Unite output:message<CR>
+
+noremap <silent> <C-]> :<C-u>Unite -no-start-insert tag:<C-r>=expand('<cword>')<CR><CR>
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings() "{{{
@@ -39,7 +50,6 @@ function! s:unite_my_settings() "{{{
     imap <buffer> jj      <Plug>(unite_insert_leave)
 
     imap <buffer><expr> j unite#smart_map('j', '')
-    imap <buffer> <TAB>   <Plug>(unite_select_next_line)
     imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
     imap <buffer> '     <Plug>(unite_quick_match_default_action)
     nmap <buffer> '     <Plug>(unite_quick_match_default_action)
