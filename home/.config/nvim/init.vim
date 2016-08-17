@@ -35,6 +35,7 @@ call dein#add('Shougo/unite-outline')
 
 " completion
 call dein#add('Shougo/deoplete.nvim')
+call dein#add('Shougo/neco-vim')
 call dein#add('c9s/perlomni.vim')
 
 " snippets
