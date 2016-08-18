@@ -27,7 +27,7 @@ nmap    f [unite]
 xmap    f [unite]
 
 nnoremap <silent> [unite]f  :<C-u>call UniteFileRecSource()<CR>
-nnoremap <silent> [unite]b  :<C-u>Unite -buffer-name=myunite buffer file_mru file/new directory/new<CR>
+nnoremap <silent> [unite]b  :<C-u>Unite -buffer-name=myunite buffer neomru/file file/new directory/new<CR>
 nnoremap <silent> [unite]n  :<C-u>UniteWithBufferDir -buffer-name=new file/new directory/new<CR>
 nnoremap <silent> [unite]y  :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> [unite]o  :<C-u>Unite -buffer-name=outline outline<CR>
@@ -98,6 +98,8 @@ let g:unite_source_file_rec_max_depth = 10
 call unite#custom#profile('default', 'context', {
 \   'start_insert': 1
 \ })
+
+call unite#custom#source('neomru/file', 'matchers', ['matcher_project_files', 'matcher_fuzzy'])
 
 if !exists("g:unite_source_menu_menus")
     let g:unite_source_menu_menus = {}
