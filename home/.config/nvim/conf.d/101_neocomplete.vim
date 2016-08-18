@@ -63,3 +63,5 @@ let g:deoplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:deoplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:deoplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
 let g:deoplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+let g:deoplete#sources#omni#input_patterns.typescript = '\h\w*\|[^. \t]\.\w*'
+

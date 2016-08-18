@@ -37,7 +37,6 @@ call dein#add('Shougo/unite-outline')
 " completion
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/neco-vim')
-call dein#add('c9s/perlomni.vim')
 
 " snippets
 call dein#add('Shougo/neosnippet.vim')
@@ -82,12 +81,6 @@ call dein#add('Shougo/context_filetype.vim')
 call dein#add('othree/html5.vim')
 call dein#add('takuji31/xslate-vim')
 
-
-" golang
-call dein#add('dgryski/vim-godef')
-call dein#add('fatih/vim-go')
-call dein#add('nsf/gocode', {'rtp': 'vim/'})
-
 " display
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
@@ -97,6 +90,21 @@ call dein#add('w0ng/vim-hybrid', {'merged': 0})
 
 
 call dein#add('sudo.vim')
+
+
+" golang
+call dein#add('dgryski/vim-godef')
+call dein#add('fatih/vim-go')
+call dein#add('nsf/gocode', {'rtp': 'vim/'})
+
+" perl
+call dein#add('c9s/perlomni.vim')
+
+" TypeScript
+call dein#add('HerringtonDarkholme/yats.vim')
+call dein#add('Quramy/tsuquyomi')
+call dein#add('jason0x43/vim-js-indent')
+
 
 " You can specify revision/branch/tag.
 "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
