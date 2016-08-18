@@ -48,6 +48,8 @@ call dein#add('tpope/vim-fugitive')
 call dein#add('mattn/gist-vim')
 call dein#add('airblade/vim-gitgutter')
 call dein#add('cohama/agit.vim')
+call dein#add('rhysd/committia.vim')
+call dein#add('idanarye/vim-merginal')
 
 " editing
 call dein#add('mattn/emmet-vim')
