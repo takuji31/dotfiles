@@ -46,8 +46,8 @@ call dein#add('Shougo/neosnippet-snippets')
 " git
 call dein#add('tpope/vim-fugitive')
 call dein#add('mattn/gist-vim')
-call dein#add('gregsexton/gitv')
 call dein#add('airblade/vim-gitgutter')
+call dein#add('cohama/agit.vim')
 
 " editing
 call dein#add('mattn/emmet-vim')
