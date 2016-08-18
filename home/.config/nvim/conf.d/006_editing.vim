@@ -28,3 +28,5 @@ if &diff
     map <leader>2 :diffget BASE<CR>
     map <leader>3 :diffget REMOTE<CR>
 endif
+
+set clipboard+=unnamedplus
