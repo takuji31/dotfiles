@@ -17,9 +17,6 @@ nnoremap gc `[v`]
 vnoremap gc :<C-u>normal gc<Enter>
 onoremap gc :<C-u>normal gc<Enter>
 
-"multi paste
-vnoremap <silent> <C-p> "0p<CR>
-
 " extend moving
 source $VIMRUNTIME/macros/matchit.vim
 
