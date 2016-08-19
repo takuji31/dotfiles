@@ -101,9 +101,9 @@ call dein#add('nsf/gocode', {'rtp': 'vim/'})
 call dein#add('c9s/perlomni.vim')
 
 " TypeScript
-call dein#add('HerringtonDarkholme/yats.vim')
-call dein#add('Quramy/tsuquyomi')
-call dein#add('jason0x43/vim-js-indent')
+"call dein#add('HerringtonDarkholme/yats.vim')
+"call dein#add('jason0x43/vim-js-indent')
+"call dein#add('Quramy/tsuquyomi')
 
 
 " You can specify revision/branch/tag.
