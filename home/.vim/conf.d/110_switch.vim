@@ -1,2 +1,2 @@
-nnoremap - :Switch<cr>
+let g:switch_mapping = "-"
 
