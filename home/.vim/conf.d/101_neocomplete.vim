@@ -9,7 +9,7 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 " define snippets directory
 let g:neosnippet#snippets_directory = "~/.vim/snippets/"
 " Define dictionary.
-let g:neocomplete#sources#dictionary#doctionaries = {
+let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions'
