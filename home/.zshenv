@@ -18,7 +18,7 @@ $HOME/bin(N-/)
 $path
 )
 
-export EDITOR=nvim
+export EDITOR=vim
 
 #Pager
 if type lv > /dev/null 2>&1; then
