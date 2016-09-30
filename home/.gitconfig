@@ -14,7 +14,7 @@
     ui = true
 [core]
     attributesfile = ~/.gitattributes
-    editor = "nvim \"+e ++enc=utf-8\"" # force encoding utf-8 in log message.
+    editor = "vim \"+e ++enc=utf-8\"" # force encoding utf-8 in log message.
     excludesfile = ~/.gitignore
     pager = lv
     trustctime = false
