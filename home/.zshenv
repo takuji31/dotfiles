@@ -1,5 +1,4 @@
-export LANG="ja_JP.UTF-8"
-export LANGUAGE="ja_JP.UTF-8:en_US.UTF-8:en_US:en_GB:en"
+export LC_ALL="en_US.UTF-8"
 
 typeset -U path
 path=(
