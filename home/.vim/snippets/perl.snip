@@ -258,4 +258,4 @@ prev_word   '^'
 
 snippet     todo
 options     head
-    # TODO(`substitute(system('git rev-parse --abbrev-ref HEAD'), '\n\+$', '', '')`) ${0}
+    # TODO(`substitute(substitute(substitute(system('git rev-parse --abbrev-ref HEAD'), '\n\+$', '', ''), '^\(feature|hotfix|release|design\)\/', '', ''), '\/.\+$', '', '')`): ${0}
