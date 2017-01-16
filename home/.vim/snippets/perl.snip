@@ -103,6 +103,34 @@ prev_word '^'
 	)${2:->with(qw/${3\}/)};
 	my ($${4:class}, $args) = $validator->validate(@_);
 
+snippet     asub
+	sub ${1} {
+		args my $class => 'ClassName',
+		     my $${2};
+		${0}
+	}
+
+snippet     assub
+	sub ${1} {
+		args my $self,
+		     my $${2};
+		${0}
+	}
+
+snippet     apsub
+	sub ${1} {
+		args_pos my $class => 'ClassName',
+		         my $${2};
+		${0}
+	}
+
+snippet     apssub
+	sub ${1} {
+		args_pos my $self,
+		         my $${2};
+		${0}
+	}
+
 snippet     import
 prev_word '^'
 	sub import {
