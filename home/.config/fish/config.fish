@@ -1,4 +1,5 @@
 set -x LC_ALL en_US.UTF-8
+set -x LANG en_US.UTF-8
 add_path /usr/local/go/bin /usr/local/bin
 add_path $HOME/.composer/vendor/bin/ $HOME/.anyenv/bin $HOME/local/bin $HOME/bin
 add_path /Applications/MacVim.app/Contents/MacOS
