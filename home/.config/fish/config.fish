@@ -18,6 +18,6 @@ if test -x (which go)
   add_path $GOPATH/bin $GOROOT/bin
 end
 
-if test -f $HOME/.fishconfig_local
-  source $HOME/.fishconfig_local
+if test -f $HOME/.fishconfig_local.fish
+  source $HOME/.fishconfig_local.fish
 end
