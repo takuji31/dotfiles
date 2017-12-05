@@ -109,6 +109,8 @@ call dein#add('c9s/perlomni.vim')
 " You can specify revision/branch/tag.
 "call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
+call dein#add('tpope/vim-obsession')
+
 " Required:
 call dein#end()
 
