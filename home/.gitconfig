@@ -30,10 +30,6 @@
     email = takuji31@gmail.com
     name = Takuji Nishibayashi
 
-[merge "mergepbx"]
-    driver = /usr/local/bin/mergepbx %O %A %B
-    name = XCode project files merger
-
 [ghq]
     root = ~/project
     root = ~/.ghq
