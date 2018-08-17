@@ -13,6 +13,11 @@ if test -d $HOME/.plenv
   source (plenv init -|psub)
 end
 
+# ndenv
+if test -x (which nodenv)
+  source (nodenv init -|psub)
+end
+
 if test -x (which go)
   set -x GOROOT (go env GOROOT)
   set -x GOPATH $HOME/.go
