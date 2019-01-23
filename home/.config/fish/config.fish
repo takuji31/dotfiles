@@ -45,7 +45,7 @@ if test -x (which go)
 end
 
 if test -x (which code)
-  set -x EDITOR 'code -w'
+  set -x EDITOR code -w
 end
 
 if test -f $HOME/.fishconfig_local.fish
