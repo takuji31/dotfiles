@@ -19,6 +19,10 @@ if test -x /usr/local/opt/ruby/bin/gem
     add_path $p/bin
   end
 end
+
+if test -d /usr/local/share/android-sdk
+  set -x ANDROID_SDK_ROOT /usr/local/share/android-sdk
+end
 set -x EDITOR 'vim'
 set -x PAGER less
 set -x MYSQL_PS1 '\U DB:\d DATE: \D MySQL: \v  \n>\_'
