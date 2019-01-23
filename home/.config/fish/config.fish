@@ -13,6 +13,12 @@ add_path /usr/local/share/android-sdk/tools
 add_path /usr/local/share/android-sdk/tools/bin
 add_path /usr/local/share/android-sdk/build-tools
 add_path /usr/local/share/android-sdk/platform-tools/
+add_path /usr/local/opt/ruby/bin
+if test -x /usr/local/opt/ruby/bin/gem
+  for p in (string split ":" (/usr/local/opt/ruby/bin/gem environment gempath))
+    add_path $p/bin
+  end
+end
 set -x EDITOR 'vim'
 set -x PAGER less
 set -x MYSQL_PS1 '\U DB:\d DATE: \D MySQL: \v  \n>\_'
