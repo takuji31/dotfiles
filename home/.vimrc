@@ -89,7 +89,7 @@ call dein#add('vim-airline/vim-airline-themes')
 call dein#add('w0ng/vim-hybrid', {'merged': 0})
 
 
-call dein#add('sudo.vim')
+call dein#add('vim-scripts/sudo.vim')
 
 
 " golang
