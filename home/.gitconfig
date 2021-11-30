@@ -1,7 +1,7 @@
 [alias]
     ci = commit -v
     co = checkout
-    delete-merged-branches = !git branch --merged | grep -v master | grep -v '^*' | xargs -I % git branch -d %
+    delete-merged-branches = !git branch --merged | grep -v master | grep -v '^devel' | grep -v '^*' | xargs -I % git branch -d %
     di = diff
     graph = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%cn] %Cgreen%d%Creset %s' --all --date=short
     logg = log --stat --pretty=format:'%Cblue%h %Cgreen%ar %Cred%an %Creset%s %Cred%d'
@@ -15,21 +15,13 @@
     ui = true
 [core]
     attributesfile = ~/.gitattributes
-    editor = "vim \"+e ++enc=utf-8\"" # force encoding utf-8 in log message.
+	editor = code --wait
     excludesfile = ~/.gitignore
-    pager = lv
+    pager = less
     trustctime = false
-[diff]
-    algorithm = histogram
-    suppressBlankEmpty = true
-[pager]
-    diff = diff-highlight | less
-    log = diff-highlight | less
-    show = diff-highlight | less
 [user]
-    email = takuji31@gmail.com
-    name = Takuji Nishibayashi
-
+	email = takuji31@gmail.com
+	name = Takuji Nishibayashi
 [ghq]
     root = ~/project
     root = ~/.ghq
@@ -48,3 +40,9 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[diff]
+    tool = code
+[difftool "code"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+[pull]
+	ff = only

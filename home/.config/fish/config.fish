@@ -14,8 +14,17 @@ add_path /usr/local/share/android-sdk/tools/bin
 add_path /usr/local/share/android-sdk/build-tools
 add_path /usr/local/share/android-sdk/platform-tools/
 add_path /usr/local/opt/ruby/bin
+add_path /usr/local/opt/ruby@2.7/bin
+add_path $HOME/flutter/bin
+
 if test -x /usr/local/opt/ruby/bin/gem
   for p in (string split ":" (/usr/local/opt/ruby/bin/gem environment gempath))
+    add_path $p/bin
+  end
+end
+
+if test -x /usr/local/opt/ruby@2.7/bin/gem
+  for p in (string split ":" (/usr/local/opt/ruby@2.7/bin/gem environment gempath))
     add_path $p/bin
   end
 end
@@ -51,3 +60,9 @@ end
 if test -f $HOME/.fishconfig_local.fish
   source $HOME/.fishconfig_local.fish
 end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/takuji31/google-cloud-sdk/path.fish.inc' ]; . '/Users/takuji31/google-cloud-sdk/path.fish.inc'; end
+set -g fish_user_paths "/usr/local/opt/ruby@2.7/bin" $fish_user_paths
+
+add_path /usr/local/opt/node@16/bin
