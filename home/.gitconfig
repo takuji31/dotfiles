@@ -23,10 +23,8 @@
 	email = takuji31@gmail.com
 	name = Takuji Nishibayashi
 [ghq]
-    root = ~/project
-    root = ~/.ghq
     root = ~/.homesick/repos
-    root = ~/IdeaProjects
+    root = ~/projects
 [github]
     user = takuji31
 [hub]
