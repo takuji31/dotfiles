@@ -61,6 +61,10 @@ if test -f $HOME/.fishconfig_local.fish
   source $HOME/.fishconfig_local.fish
 end
 
+if test -f /opt/homebrew/bin/brew
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+end
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/takuji31/google-cloud-sdk/path.fish.inc' ]; . '/Users/takuji31/google-cloud-sdk/path.fish.inc'; end
 set -g fish_user_paths "/usr/local/opt/ruby@2.7/bin" $fish_user_paths

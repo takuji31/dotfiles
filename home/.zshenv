@@ -49,3 +49,6 @@ fi
 
 #source local env
 [[ -e $HOME/.zshenv_local ]] && source $HOME/.zshenv_local
+
+#eval homebrew
+[[ -e /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
