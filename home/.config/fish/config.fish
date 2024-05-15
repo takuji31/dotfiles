@@ -70,3 +70,8 @@ if [ -f '/Users/takuji31/google-cloud-sdk/path.fish.inc' ]; . '/Users/takuji31/g
 set -g fish_user_paths "/usr/local/opt/ruby@2.7/bin" $fish_user_paths
 
 add_path /usr/local/opt/node@16/bin
+
+if test -d "$HOME/.volta"
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH
+end
