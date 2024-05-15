@@ -42,18 +42,18 @@ if test -d $HOME/.plenv
 end
 
 # ndenv
-if test -x (which nodenv)
+if test (which nodenv)
   source (nodenv init -|psub)
 end
 
-if test -x (which go)
+if test (which go)
   set -x GOROOT (go env GOROOT)
   set -x GOPATH $HOME/.go
   add_path $GOPATH/bin
   add_path $GOROOT/bin
 end
 
-if test -x (which code)
+if test (which code)
   set -x EDITOR code -w
 end
 
