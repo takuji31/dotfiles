@@ -57,10 +57,6 @@ if test (which code)
   set -x EDITOR code -w
 end
 
-if test -f $HOME/.fishconfig_local.fish
-  source $HOME/.fishconfig_local.fish
-end
-
 if test -f /opt/homebrew/bin/brew
   eval "(/opt/homebrew/bin/brew shellenv)"
 end
@@ -74,4 +70,8 @@ add_path /usr/local/opt/node@16/bin
 if test -d "$HOME/.volta"
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
+end
+
+if test -f $HOME/.fishconfig_local.fish
+  source $HOME/.fishconfig_local.fish
 end
