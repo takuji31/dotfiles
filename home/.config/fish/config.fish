@@ -62,7 +62,7 @@ if test -f $HOME/.fishconfig_local.fish
 end
 
 if test -f /opt/homebrew/bin/brew
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+  eval "(/opt/homebrew/bin/brew shellenv)"
 end
 
 # The next line updates PATH for the Google Cloud SDK.
