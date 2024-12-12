@@ -1,0 +1,54 @@
+[alias]
+    ci = commit -v
+    co = checkout
+    delete-merged-branches = !git branch --merged | grep -v master | grep -v '^devel' | grep -v '^*' | xargs -I % git branch -d %
+    di = diff
+    graph = log --graph --date-order -C -M --pretty=format:'<%h> %ad [%cn] %Cgreen%d%Creset %s' --all --date=short
+    logg = log --stat --pretty=format:'%Cblue%h %Cgreen%ar %Cred%an %Creset%s %Cred%d'
+    new = whatchanged HEAD@{1}..HEAD --reverse --stat
+    st = status
+    todos = ! git grep TODO\\(`git rev-parse --abbrev-ref HEAD`\\)
+[color]
+    branch = auto
+    diff = auto
+    status = auto
+    ui = true
+[core]
+    attributesfile = ~/.gitattributes
+	editor = code --wait
+    excludesfile = ~/.gitignore
+    pager = less
+    trustctime = false
+[user]
+	email = takuji31@gmail.com
+	name = Takuji Nishibayashi
+[ghq]
+    root = ~/.homesick/repos
+    root = ~/projects
+[github]
+    user = takuji31
+[hub]
+    protocol = https
+[push]
+	default = simple
+[include]
+    path = ~/.gitconfig.local
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[diff]
+    tool = code
+[difftool "code"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+[pull]
+	ff = only
+[user]
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjYT/XAuG+s36L6Jt03GVCBfBglNgdy3I/jDxJnVtDa
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+[commit]
+  gpgsign = true
