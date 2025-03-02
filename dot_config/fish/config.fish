@@ -76,3 +76,7 @@ end
 if test -f $HOME/.fishconfig_local.fish
   source $HOME/.fishconfig_local.fish
 end
+
+if test -d /home/linuxbrew/.linuxbrew/bin/
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+end
