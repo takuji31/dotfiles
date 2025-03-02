@@ -48,7 +48,9 @@
   signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjYT/XAuG+s36L6Jt03GVCBfBglNgdy3I/jDxJnVtDa
 [gpg]
   format = ssh
-[gpg "ssh"]
-  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 [commit]
   gpgsign = true
+{{- if eq .chezmoi.os "darwin" -}}
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+{{ end -}}
