@@ -6,6 +6,7 @@ add_path $HOME/.composer/vendor/bin/
 add_path $HOME/.anyenv/bin
 add_path $HOME/.plenv/bin
 add_path $HOME/local/bin
+add_path $HOME/.local/bin
 add_path $HOME/bin
 add_path /Applications/MacVim.app/Contents/MacOS
 add_path /usr/local/share/android-sdk/bin
@@ -78,5 +79,5 @@ if test -f $HOME/.fishconfig_local.fish
 end
 
 if test -d /home/linuxbrew/.linuxbrew/bin/
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 end
