@@ -81,3 +81,6 @@ end
 if test -d /home/linuxbrew/.linuxbrew/bin/
   eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 end
+if test (which starship)
+  starship init fish | source
+end
