@@ -57,7 +57,7 @@
 {{ if eq .chezmoi.os "linux" }}
 {{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 [gpg "ssh"]
-  program = "/mnt/c/Users/takuj/AppData/Local/1Password/app/8/op-ssh-sign-wsl"
+  program = "/mnt/c/Users/takuj/AppData/Local/Microsoft/WindowsApps/op-ssh-sign.exe"
 [core]
   sshCommand = ssh.exe
 {{   end }}
