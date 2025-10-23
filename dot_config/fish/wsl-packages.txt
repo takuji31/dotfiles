@@ -1,0 +1,36 @@
+# WSL Ubuntu用パッケージリスト
+# フォーマット: package_name:check_command
+# コメント行（#で始まる行）と空行は無視されます
+
+# 必須レベル
+build-essential:gcc
+git:git
+tig:tig
+curl:curl
+perl:perl
+vim:vim
+tmux:tmux
+
+# よく使うツール
+jq:jq
+tree:tree
+unzip:unzip
+zip:zip
+ca-certificates:update-ca-certificates
+
+# テキスト処理
+gawk:awk
+sed:sed
+grep:grep
+findutils:find
+coreutils:sort
+
+# オプション（便利ツール）
+htop:htop
+wget:wget
+
+# 追加ツール（コメントアウト例）
+# ripgrep:rg
+# fd-find:fdfind
+# bat:batcat
+# exa:exa
