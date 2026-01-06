@@ -35,6 +35,7 @@ if test -d /usr/local/share/android-sdk
 end
 set -x EDITOR 'vim'
 set -x PAGER less
+set -x ENABLE_TOOL_SEARCH true
 set -x MYSQL_PS1 '\U DB:\d DATE: \D MySQL: \v  \n>\_'
 
 # plenv
