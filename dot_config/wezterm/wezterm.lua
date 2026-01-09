@@ -18,5 +18,9 @@ wezterm.log_info("hello world! my name is " .. wezterm.hostname())
 config.audible_bell = "Disabled"
 config.use_fancy_tab_bar = true
 
+-- for windows
+if wezterm.target_triple:find('windows') then
+  config.default_domain = 'WSL:Ubuntu'
+end
 
 return config
