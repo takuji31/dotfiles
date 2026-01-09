@@ -34,7 +34,9 @@ function install-wsl-packages -d "Install missing packages for WSL Ubuntu (idemp
         return 1
     end
 
-    set -l packages_to_install
+    set -l apt_packages
+    set -l brew_packages
+    set -l snap_packages
 
     if test $dry_run -eq 1
         echo "[DRY RUN MODE] No packages will be installed"
@@ -51,36 +53,97 @@ function install-wsl-packages -d "Install missing packages for WSL Ubuntu (idemp
         end
 
         set -l parts (string split ":" $line)
-        if test (count $parts) -ne 2
+        set -l part_count (count $parts)
+
+        if test $part_count -lt 2
             continue
         end
 
         set -l package $parts[1]
         set -l command $parts[2]
+        set -l method "apt"
+
+        if test $part_count -ge 3
+            set method $parts[3]
+        end
 
         if not type -q $command
-            echo "  Missing: $package"
-            set -a packages_to_install $package
+            echo "  Missing: $package ($method)"
+            switch $method
+                case apt
+                    set -a apt_packages $package
+                case brew
+                    set -a brew_packages $package
+                case snap
+                    set -a snap_packages $package
+            end
         end
     end
 
     # Install or show missing packages
-    if test (count $packages_to_install) -gt 0
+    set -l total_missing (math (count $apt_packages) + (count $brew_packages) + (count $snap_packages))
+
+    if test $total_missing -gt 0
         echo ""
+
         if test $dry_run -eq 1
-            echo "[DRY RUN] Would install the following packages:"
-            for pkg in $packages_to_install
-                echo "  - $pkg"
+            # Dry run mode
+            if test (count $apt_packages) -gt 0
+                echo "[DRY RUN] Would install via apt:"
+                for pkg in $apt_packages
+                    echo "  - $pkg"
+                end
+                echo "  Command: sudo apt-get update && sudo apt-get install -y $apt_packages"
+                echo ""
             end
-            echo ""
-            echo "[DRY RUN] Would run:"
-            echo "  sudo apt-get update"
-            echo "  sudo apt-get install -y $packages_to_install"
+
+            if test (count $brew_packages) -gt 0
+                echo "[DRY RUN] Would install via brew:"
+                for pkg in $brew_packages
+                    echo "  - $pkg"
+                end
+                echo "  Command: brew install $brew_packages"
+                echo ""
+            end
+
+            if test (count $snap_packages) -gt 0
+                echo "[DRY RUN] Would install via snap:"
+                for pkg in $snap_packages
+                    echo "  - $pkg"
+                end
+                echo "  Command: sudo snap install $snap_packages"
+                echo ""
+            end
         else
-            echo "Installing missing packages: $packages_to_install"
-            sudo apt-get update
-            sudo apt-get install -y $packages_to_install
-            echo ""
+            # Actual installation
+            if test (count $apt_packages) -gt 0
+                echo "Installing via apt: $apt_packages"
+                sudo apt-get update
+                sudo apt-get install -y $apt_packages
+                echo ""
+            end
+
+            if test (count $brew_packages) -gt 0
+                echo "Installing via brew: $brew_packages"
+                if not type -q brew
+                    echo "Error: Homebrew is not installed. Install it first:"
+                    echo '  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+                    return 1
+                end
+                brew install $brew_packages
+                echo ""
+            end
+
+            if test (count $snap_packages) -gt 0
+                echo "Installing via snap: $snap_packages"
+                if not type -q snap
+                    echo "Error: snap is not installed"
+                    return 1
+                end
+                sudo snap install $snap_packages
+                echo ""
+            end
+
             echo "Installation complete!"
         end
     else

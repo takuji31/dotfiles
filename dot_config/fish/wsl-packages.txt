@@ -1,5 +1,7 @@
 # WSL Ubuntu用パッケージリスト
-# フォーマット: package_name:check_command
+# フォーマット: package_name:check_command:install_method
+# install_method: apt (デフォルト), brew, snap
+# install_methodを省略した場合はaptが使用されます
 # コメント行（#で始まる行）と空行は無視されます
 
 # 必須レベル
@@ -12,6 +14,9 @@ vim:vim
 tmux:tmux
 
 # よく使うツール
+peco:peco:brew
+ghq:ghq:brew
+graphviz:dot
 jq:jq
 tree:tree
 unzip:unzip
@@ -29,8 +34,11 @@ coreutils:sort
 htop:htop
 wget:wget
 
+# Modern CLI tools (brew)
+ripgrep:rg:brew
+fd:fd:brew
+bat:bat:brew
+starship:starship:brew
+
 # 追加ツール（コメントアウト例）
-# ripgrep:rg
-# fd-find:fdfind
-# bat:batcat
-# exa:exa
+# eza:eza:brew
