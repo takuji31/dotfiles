@@ -1,5 +1,25 @@
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
+
+-- Font settings
+config.font = wezterm.font_with_fallback({
+  'Firge35Nerd Console',
+  'Menlo',    -- macOS fallback
+  'Consolas', -- Windows fallback
+})
+config.font_size = 18
+config.line_height = 1.1
+
+-- Tab bar font
+config.window_frame = {
+  font = wezterm.font_with_fallback({
+    'Firge35Nerd Console',
+    'Menlo',
+    'Consolas',
+  }),
+  font_size = 14,
+}
+
 config.check_for_updates = true
 config.check_for_updates_interval_seconds = 86400
 config.scrollback_lines = 10000
