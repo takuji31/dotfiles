@@ -55,6 +55,8 @@
   program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 {{ end -}}
 {{ if eq .chezmoi.os "windows" }}
+[gpg "ssh"]
+  program = "C:/Users/takuj/AppData/Local/Microsoft/WindowsApps/op-ssh-sign.exe"
 [core]
   sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
 {{ end -}}
