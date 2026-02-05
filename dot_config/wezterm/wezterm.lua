@@ -49,6 +49,14 @@ config.send_composed_key_when_right_alt_is_pressed = false
 
 config.bypass_mouse_reporting_modifiers = 'SHIFT'
 
+config.keys = {
+  {
+    key = 'l',
+    mods = 'CTRL|SHIFT|ALT',
+    action = wezterm.action.ShowLauncher,
+  },
+}
+
 config.launch_menu = {
   {
     label = 'Claude Code',
