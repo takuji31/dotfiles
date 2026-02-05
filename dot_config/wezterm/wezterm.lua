@@ -49,4 +49,20 @@ config.send_composed_key_when_right_alt_is_pressed = false
 
 config.bypass_mouse_reporting_modifiers = 'SHIFT'
 
+config.launch_menu = {
+  {
+    label = 'Claude Code',
+    args = { 'claude' },
+  },
+  {
+    label = 'Claude Code (a-train-manager)',
+    cwd = '/home/takuji/projects/github.com/takuji31/a-train-manager',
+    args = { 'claude' },
+  },
+  {
+    label = 'Lazygit',
+    args = { 'lazygit' },
+  },
+}
+
 return config
