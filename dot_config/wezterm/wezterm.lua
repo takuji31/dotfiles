@@ -65,4 +65,6 @@ config.launch_menu = {
   },
 }
 
+config.enable_kitty_graphics = true
+
 return config
