@@ -84,6 +84,16 @@ config.keys = {
   { key = 'g', mods = 'CTRL|SHIFT|ALT', action = quick_launch_actions.lazygit },
 }
 
+config.launch_menu = {
+  { label = '🤖 Claude Code', args = { 'claude' } },
+  {
+    label = '🚂 Claude Code (a-train-manager)',
+    args = { 'claude' },
+    cwd = '/home/takuji/projects/github.com/takuji31/a-train-manager',
+  },
+  { label = '📦 Lazygit', args = { 'lazygit' } },
+}
+
 config.enable_kitty_graphics = true
 
 return config
