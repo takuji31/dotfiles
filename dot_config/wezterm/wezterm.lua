@@ -49,39 +49,12 @@ config.send_composed_key_when_right_alt_is_pressed = false
 
 config.bypass_mouse_reporting_modifiers = 'SHIFT'
 
-local quick_launch_items = {
-  { id = 'claude', label = 'c  Claude Code' },
-  { id = 'claude-atrain', label = 'a  Claude Code (a-train-manager)' },
-  { id = 'lazygit', label = 'g  Lazygit' },
-}
-
-local quick_launch_actions = {
-  claude = wezterm.action.SpawnCommandInNewTab { args = { 'claude' } },
-  ['claude-atrain'] = wezterm.action.SpawnCommandInNewTab {
-    args = { 'claude' },
-    cwd = '/home/takuji/projects/github.com/takuji31/a-train-manager',
-  },
-  lazygit = wezterm.action.SpawnCommandInNewTab { args = { 'lazygit' } },
-}
-
 config.keys = {
   {
     key = 'l',
     mods = 'CTRL|SHIFT|ALT',
-    action = wezterm.action.InputSelector {
-      title = '🚀 Quick Launch',
-      choices = quick_launch_items,
-      fuzzy = true,
-      action = wezterm.action_callback(function(window, pane, id, label)
-        if id and quick_launch_actions[id] then
-          window:perform_action(quick_launch_actions[id], pane)
-        end
-      end),
-    },
+    action = wezterm.action.ShowLauncherArgs { flags = 'FUZZY|LAUNCH_MENU_ITEMS' },
   },
-  { key = 'c', mods = 'CTRL|SHIFT|ALT', action = quick_launch_actions.claude },
-  { key = 'a', mods = 'CTRL|SHIFT|ALT', action = quick_launch_actions['claude-atrain'] },
-  { key = 'g', mods = 'CTRL|SHIFT|ALT', action = quick_launch_actions.lazygit },
 }
 
 config.launch_menu = {
