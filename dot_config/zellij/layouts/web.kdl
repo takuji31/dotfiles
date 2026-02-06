@@ -1,0 +1,17 @@
+    tab name="dev" focus=true {
+        pane command="pnpm" {
+            args "run" "dev"
+        }
+    }
+    tab name="git" {
+        pane command="lazygit"
+    }
+    tab name="claude" {
+        pane command="claude"
+    }
+    tab name="edit" {
+        pane
+    }
+    tab name="shell" {
+        pane
+    }

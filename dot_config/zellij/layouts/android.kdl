@@ -1,0 +1,20 @@
+    tab name="logcat" focus=true {
+        pane command="adb" {
+            args "logcat"
+        }
+    }
+    tab name="git" {
+        pane command="lazygit"
+    }
+    tab name="claude" {
+        pane command="claude"
+    }
+    tab name="edit" {
+        pane
+    }
+    tab name="gradle" {
+        pane
+    }
+    tab name="shell" {
+        pane
+    }

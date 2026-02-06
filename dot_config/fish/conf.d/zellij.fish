@@ -8,6 +8,7 @@ if command -q zellij
     # Zellij project layout (.zellij.kdl) manager
     function zp
         set -l layout_dir ~/.config/zellij/layouts
+        set -l template_file $layout_dir/_template.kdl
 
         switch $argv[1]
             case edit
@@ -19,7 +20,8 @@ if command -q zellij
                     echo "Error: .zellij.kdl already exists" >&2
                     return 1
                 end
-                set -l templates (find $layout_dir -name '*.kdl' -type f 2>/dev/null | sort)
+                # Exclude _template.kdl and default.kdl from selection
+                set -l templates (find $layout_dir -name '*.kdl' -type f ! -name '_*' ! -name 'default.kdl' 2>/dev/null | sort)
                 if test -z "$templates"
                     echo "Error: No templates found in $layout_dir" >&2
                     return 1
@@ -33,12 +35,22 @@ if command -q zellij
                     return 1
                 end
             case ''
-                if test -f .zellij.kdl
-                    zellij --layout ./.zellij.kdl
-                else
+                if not test -f .zellij.kdl
                     echo "Error: .zellij.kdl not found in current directory" >&2
                     return 1
                 end
+                if not test -f $template_file
+                    echo "Error: Template not found: $template_file" >&2
+                    return 1
+                end
+                # Combine template and project layout
+                set -l tmp_layout (mktemp --suffix=.kdl)
+                echo "layout {" > $tmp_layout
+                cat $template_file >> $tmp_layout
+                cat .zellij.kdl >> $tmp_layout
+                echo "}" >> $tmp_layout
+                zellij --layout $tmp_layout
+                rm -f $tmp_layout
             case '*'
                 echo "Usage: zp [new|edit]" >&2
                 return 1
