@@ -59,6 +59,10 @@ if test (which code)
   set -x EDITOR code -w
 end
 
+if test (which micro)
+  set -x EDITOR micro
+end
+
 if test -f /opt/homebrew/bin/brew
   eval (/opt/homebrew/bin/brew shellenv)
 end
