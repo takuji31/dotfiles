@@ -1,6 +1,10 @@
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
+local act = wezterm.action
+local is_windows = wezterm.target_triple:find('windows') ~= nil
+local mod_key = is_windows and 'CTRL|SHIFT' or 'CMD'
+
 -- Font settings
 config.font = wezterm.font_with_fallback({
   'Firge35Nerd Console',
@@ -39,13 +43,31 @@ config.audible_bell = "Disabled"
 config.use_fancy_tab_bar = true
 
 -- for windows
-if wezterm.target_triple:find('windows') then
+if is_windows then
   config.default_domain = 'WSL:Ubuntu'
 end
 
 -- for Mac
-config.send_composed_key_when_left_alt_is_pressed = false
-config.send_composed_key_when_right_alt_is_pressed = false
+if not is_windows then
+  config.default_prog = { '/opt/homebrew/bin/fish', '-l' }
+  config.send_composed_key_when_left_alt_is_pressed = false
+  config.send_composed_key_when_right_alt_is_pressed = false
+end
+
+config.keys = {
+  {
+    key = 'u',
+    mods = mod_key,
+    action = act.QuickSelectArgs {
+      label = 'open url',
+      patterns = { 'https?://[\\w\\d\\-._~:/?#\\[\\]@!$&\'()*+,;=%]+' },
+      action = wezterm.action_callback(function(window, pane)
+        local url = window:get_selection_text_for_pane(pane)
+        wezterm.open_with(url)
+      end),
+    },
+  },
+}
 
 config.bypass_mouse_reporting_modifiers = 'SHIFT'
 
