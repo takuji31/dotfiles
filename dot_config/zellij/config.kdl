@@ -158,8 +158,9 @@ keybinds clear-defaults=true {
         bind "Alt =" { Resize "Increase"; }
         bind "Alt ," { MoveTab "left"; }
         bind "Alt ." { MoveTab "right"; }
-        bind "Alt [" { PreviousSwapLayout; }
-        bind "Alt ]" { NextSwapLayout; }
+        // Alt [ is mouse escape sequence
+        // bind "Alt [" { PreviousSwapLayout; }
+        // bind "Alt ]" { NextSwapLayout; }
         bind "Alt 1" { GoToTab 1; SwitchToMode "locked"; }
         bind "Alt 2" { GoToTab 2; SwitchToMode "locked"; }
         bind "Alt 3" { GoToTab 3; SwitchToMode "locked"; }
