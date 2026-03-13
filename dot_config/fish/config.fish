@@ -33,7 +33,7 @@ end
 if test -d /usr/local/share/android-sdk
   set -x ANDROID_SDK_ROOT /usr/local/share/android-sdk
 end
-set -x EDITOR 'vim'
+set -x EDITOR 'nvim'
 set -x PAGER less
 set -x ENABLE_TOOL_SEARCH true
 set -x MYSQL_PS1 '\U DB:\d DATE: \D MySQL: \v  \n>\_'
@@ -55,12 +55,10 @@ if test (which go)
   add_path $GOROOT/bin
 end
 
-if test (which code)
+if test (which nvim)
+  set -x EDITOR nvim
+else if test (which code)
   set -x EDITOR code -w
-end
-
-if test (which micro)
-  set -x EDITOR micro
 end
 
 if test -f /opt/homebrew/bin/brew
