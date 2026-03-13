@@ -27,4 +27,5 @@ return {
   { import = "plugins.git" },
   { import = "plugins.ui" },
   { import = "plugins.markdown" },
+  { import = "plugins.im-select" },
 }
