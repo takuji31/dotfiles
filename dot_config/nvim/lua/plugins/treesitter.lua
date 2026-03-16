@@ -8,43 +8,39 @@ return {
       "windwp/nvim-ts-autotag",
     },
     config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          -- React / Next.js 関連
-          "typescript", "tsx", "javascript", "html", "css", "json", "jsonc",
-          -- Markdown
-          "markdown", "markdown_inline",
-          -- Neovim 設定
-          "lua", "vim", "vimdoc",
-          -- その他
-          "bash", "yaml", "toml", "gitcommit", "git_rebase", "diff",
-        },
-        highlight = { enable = true },
-        indent = { enable = true },
-        autotag = { enable = true },
+      require("nvim-treesitter").install({
+        "typescript", "tsx", "javascript", "html", "css", "json", "jsonc",
+        "markdown", "markdown_inline",
+        "lua", "vim", "vimdoc",
+        "bash", "yaml", "toml", "gitcommit", "git_rebase", "diff",
+      })
 
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner",
-              ["aa"] = "@parameter.outer",
-              ["ia"] = "@parameter.inner",
-            },
+      require("nvim-treesitter-textobjects").setup({
+        select = {
+          enable = true,
+          lookahead = true,
+          keymaps = {
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["ac"] = "@class.outer",
+            ["ic"] = "@class.inner",
+            ["aa"] = "@parameter.outer",
+            ["ia"] = "@parameter.inner",
           },
-          move = {
-            enable = true,
-            goto_next_start     = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
-            goto_next_end       = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
-            goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer" },
-            goto_previous_end   = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
-          },
+        },
+        move = {
+          enable              = true,
+          goto_next_start     = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
+          goto_next_end       = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
+          goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer" },
+          goto_previous_end   = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
         },
       })
     end,
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    event = "InsertEnter",
+    opts = {},
   },
 }
