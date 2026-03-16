@@ -87,3 +87,14 @@ end
 if test (which starship)
   starship init fish | source
 end
+
+{{ if contains "microsoft" (lower .chezmoi.kernel.osrelease) }}
+set -x GTK_IM_MODULE fcitx
+set -x QT_IM_MODULE fcitx
+set -x XMODIFIERS @im=fcitx
+set -x DefaultIMModule fcitx
+
+if not pgrep -x fcitx5 > /dev/null
+    DISPLAY=:0 fcitx5 -d --replace --disable=wayland &> /dev/null &
+end
+{{ end }}
