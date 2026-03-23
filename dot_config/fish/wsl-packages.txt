@@ -39,6 +39,23 @@ ripgrep:rg:brew
 fd:fd:brew
 bat:bat:brew
 starship:starship:brew
-
-# 追加ツール（コメントアウト例）
-# eza:eza:brew
+eza:eza:brew
+fzf:fzf:brew
+lazygit:lazygit:brew
+gh:gh:brew
+yazi:yazi:brew
+zoxide:zoxide:brew
+sd:sd:brew
+jnv:jnv:brew
+btop:btop:brew
+dust:dust:brew
+duf:duf:brew
+procs:procs:brew
+git-delta:delta:brew
+xh:xh:brew
+doggo:doggo:brew
+trippy:trip:brew
+tealdeer:tldr:brew
+hyperfine:hyperfine:brew
+navi:navi:brew
+atuin:atuin:brew

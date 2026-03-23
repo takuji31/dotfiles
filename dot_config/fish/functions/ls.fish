@@ -1,10 +1,7 @@
-function ls -d "ls"
-  switch (uname)
-    case Darwin FreeBSD NetBSD DragonFly
-      command ls -G -w $argv
-    case Linux
-      command ls --color $argv
-    case '*'
-      command ls $argv
+function ls -d "ls using eza"
+  if command -q eza
+    command eza --icons --git $argv
+  else
+    command ls --color=auto $argv
   end
 end

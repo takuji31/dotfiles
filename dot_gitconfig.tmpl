@@ -17,7 +17,7 @@
     attributesfile = ~/.gitattributes
 	editor = nvim
     excludesfile = ~/.gitignore
-    pager = less
+    pager = delta
     trustctime = false
 [user]
 	email = takuji31@gmail.com
@@ -42,6 +42,15 @@
     tool = code
 [difftool "code"]
     cmd = code --wait --diff $LOCAL $REMOTE
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+    syntax-theme = Catppuccin Mocha
+[merge]
+    conflictstyle = zdiff3
 [pull]
 	ff = only
 [user]
