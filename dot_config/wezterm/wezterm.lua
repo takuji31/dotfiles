@@ -90,5 +90,6 @@ config.launch_menu = {
 }
 
 config.enable_kitty_graphics = true
+config.mux_enable_ssh_agent = false
 
 return config
