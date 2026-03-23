@@ -1,0 +1,6 @@
+.config/fish/conf.d/zellij.fish
+.config/fish/conf.d/modern-tools.fish
+.config/fish/functions/peco_ghq.fish
+.config/fish/functions/peco_history.fish
+.config/fish/functions/peco_kill.fish
+.config/fish/functions/peco_select_history.fish
