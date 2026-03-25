@@ -4,3 +4,14 @@
 .config/fish/functions/peco_history.fish
 .config/fish/functions/peco_kill.fish
 .config/fish/functions/peco_select_history.fish
+.config/fish/functions/add_path.fish
+.config/fish/functions/q.fish
+.config/fish/functions/su.fish
+.config/fish/functions/gcm.fish
+.config/fish/functions/chrome.fish
+.config/fish/functions/days-apischema-yaml-kotlin.fish
+.config/fish/functions/days-link-robolectric-properties.fish
+.config/fish/functions/create-robolectric-symlink.fish
+.config/fish/functions/room-enable-query-log.fish
+.config/fish/functions/react-adb-reverse.fish
+.config/fish/functions/fish_prompt.fish
