@@ -4,5 +4,3 @@
 .config/fish/functions/peco_history.fish
 .config/fish/functions/peco_kill.fish
 .config/fish/functions/peco_select_history.fish
-.config/fish/functions/check-modern-tools.fish
-.config/fish/functions/install-modern-tools.fish

@@ -29,6 +29,10 @@ if test -f $HOME/.fishconfig_local.fish
   source $HOME/.fishconfig_local.fish
 end
 
+if status is-interactive
+  check-modern-tools
+end
+
 {{ if eq .chezmoi.os "linux" }}
   {{ if .chezmoi.kernel.osrelease | contains "microsoft" -}}
     set -x GTK_IM_MODULE fcitx
