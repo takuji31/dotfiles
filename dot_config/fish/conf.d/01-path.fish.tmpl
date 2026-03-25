@@ -16,11 +16,8 @@ if test -d "$HOME/.turso"
     fish_add_path "$HOME/.turso"
 end
 
-add_path /usr/local/go/bin
 add_path /usr/local/bin
 add_path $HOME/.composer/vendor/bin/
-add_path $HOME/.anyenv/bin
-add_path $HOME/.plenv/bin
 add_path $HOME/local/bin
 add_path $HOME/.local/bin
 add_path $HOME/bin
@@ -33,33 +30,5 @@ add_path /usr/local/share/android-sdk/tools
 add_path /usr/local/share/android-sdk/tools/bin
 add_path /usr/local/share/android-sdk/build-tools
 add_path /usr/local/share/android-sdk/platform-tools/
-add_path /usr/local/opt/ruby/bin
-add_path /usr/local/opt/ruby@2.7/bin
-add_path /opt/homebrew/opt/ruby/bin
-add_path /opt/homebrew/lib/ruby/gems/3.3.0/bin
-add_path /usr/local/opt/node@16/bin
-
-if test -x /usr/local/opt/ruby/bin/gem
-  for p in (string split ":" (/usr/local/opt/ruby/bin/gem environment gempath))
-    add_path $p/bin
-  end
-end
-
-if test -x /usr/local/opt/ruby@2.7/bin/gem
-  for p in (string split ":" (/usr/local/opt/ruby@2.7/bin/gem environment gempath))
-    add_path $p/bin
-  end
-end
 {{- end }}
 
-if command -q go
-  set -x GOROOT (go env GOROOT)
-  set -x GOPATH $HOME/.go
-  add_path $GOPATH/bin
-  add_path $GOROOT/bin
-end
-
-if test -d "$HOME/.volta"
-  set -gx VOLTA_HOME "$HOME/.volta"
-  set -gx PATH "$VOLTA_HOME/bin" $PATH
-end

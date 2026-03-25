@@ -9,14 +9,6 @@ set -x PAGER less
 set -x ENABLE_TOOL_SEARCH true
 set -x MYSQL_PS1 '\U DB:\d DATE: \D MySQL: \v  \n>\_'
 
-if test -d $HOME/.plenv
-  source (plenv init -|psub)
-end
-
-if command -q nodenv
-  source (nodenv init -|psub)
-end
-
 if command -q nvim
   set -x EDITOR nvim
 else if command -q code
@@ -35,10 +27,6 @@ end
 
 if test -f $HOME/.fishconfig_local.fish
   source $HOME/.fishconfig_local.fish
-end
-
-if status is-interactive
-  check-modern-tools
 end
 
 {{ if eq .chezmoi.os "linux" }}
