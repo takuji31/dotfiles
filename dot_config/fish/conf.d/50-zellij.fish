@@ -44,12 +44,9 @@ if command -q zellij
                     return 1
                 end
                 # Combine template and project layout
-                set -l tmp_layout
-                if test (uname) = Darwin
-                    set tmp_layout (mktemp /tmp/zellij-XXXXXXXX)
-                else
-                    set tmp_layout (mktemp --suffix=.kdl)
-                end
+                set -l tmp_base (mktemp /tmp/zellij-XXXXXXXX)
+                set -l tmp_layout "$tmp_base.kdl"
+                mv $tmp_base $tmp_layout
                 echo "layout {" > $tmp_layout
                 cat $template_file >> $tmp_layout
                 cat .zellij.kdl >> $tmp_layout
