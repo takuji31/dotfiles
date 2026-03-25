@@ -12,19 +12,19 @@ if test -d "$HOME/.turso"
     fish_add_path "$HOME/.turso"
 end
 
-add_path /usr/local/bin
-add_path $HOME/.composer/vendor/bin/
-add_path $HOME/local/bin
-add_path $HOME/.local/bin
-add_path $HOME/bin
-add_path $HOME/flutter/bin
+fish_add_path /usr/local/bin
+fish_add_path $HOME/.composer/vendor/bin/
+fish_add_path $HOME/local/bin
+fish_add_path $HOME/.local/bin
+fish_add_path $HOME/bin
+fish_add_path $HOME/flutter/bin
 
 {{ if eq .chezmoi.os "darwin" -}}
-add_path /Applications/MacVim.app/Contents/MacOS
-add_path /usr/local/share/android-sdk/bin
-add_path /usr/local/share/android-sdk/tools
-add_path /usr/local/share/android-sdk/tools/bin
-add_path /usr/local/share/android-sdk/build-tools
-add_path /usr/local/share/android-sdk/platform-tools/
+fish_add_path /Applications/MacVim.app/Contents/MacOS
+fish_add_path /usr/local/share/android-sdk/bin
+fish_add_path /usr/local/share/android-sdk/tools
+fish_add_path /usr/local/share/android-sdk/tools/bin
+fish_add_path /usr/local/share/android-sdk/build-tools
+fish_add_path /usr/local/share/android-sdk/platform-tools/
 {{- end }}
 
