@@ -2,6 +2,7 @@
 node = "lts"
 go = "latest"
 ruby = "latest"
+rust = "latest"
 
 # CLI tools
 eza = "latest"
@@ -34,6 +35,7 @@ ghq = "latest"
 zellij = "latest"
 tmux = "latest"
 "gem:tmuxinator" = "latest"
+"cargo:tree-sitter-cli" = "latest"
 
 [settings]
 auto_install = true
