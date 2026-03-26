@@ -1,0 +1,23 @@
+# Font
+font-family = Firge35Nerd Console
+font-size = 18
+
+# Theme (system appearance auto switch)
+theme = light:TokyoNight Day,dark:TokyoNight
+
+# Scrollback
+scrollback-limit = 50000
+
+# Split panes
+unfocused-split-opacity = 0.85
+
+# Clipboard
+copy-on-select = clipboard
+
+# Cursor
+cursor-style = bar
+cursor-style-blink = false
+
+# Window
+window-padding-x = 4
+window-padding-y = 4
