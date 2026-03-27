@@ -40,8 +40,12 @@ end
     set -x XMODIFIERS @im=fcitx
     set -x DefaultIMModule fcitx
 
-    if not pgrep -x fcitx5 > /dev/null
-        DISPLAY=:0 fcitx5 -d --replace --disable=wayland &> /dev/null &
+    if command -q fcitx5
+      if not pgrep -x fcitx5 > /dev/null
+          DISPLAY=:0 fcitx5 -d --replace --disable=wayland &> /dev/null &
+      end
+    else
+      echo "fcitx5 is not installed. Install it with: sudo apt install fcitx5 fcitx5-mozc"
     end
   {{- end }}
 {{ end }}

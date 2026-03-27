@@ -39,3 +39,6 @@ tmux = "latest"
 
 [settings]
 auto_install = true
+
+[settings.ruby]
+compile = false
