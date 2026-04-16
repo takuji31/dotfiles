@@ -38,7 +38,7 @@ tmux = "latest"
 "cargo:tree-sitter-cli" = "latest"
 "cargo:psmux" = { version = "latest", os = ["windows"] }
 claude-squad = "latest"
-"github:asheshgoplani/agent-deck" = "latest"
+"github:asheshgoplani/agent-deck" = { version = "latest", os = ["linux", "darwin"] }
 
 [settings]
 auto_install = true
