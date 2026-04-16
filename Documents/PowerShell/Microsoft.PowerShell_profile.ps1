@@ -1,4 +1,7 @@
 # Managed by chezmoi - do not edit directly
-Invoke-Expression (& mise activate pwsh | Out-String)
-Invoke-Expression (& starship init powershell | Out-String)
-Invoke-Expression (& zoxide init powershell | Out-String)
+$ProfileDir = Join-Path (Split-Path -Parent $PROFILE) 'profile.d'
+if (Test-Path $ProfileDir) {
+    Get-ChildItem -Path $ProfileDir -Filter '*.ps1' |
+        Sort-Object Name |
+        ForEach-Object { . $_.FullName }
+}
