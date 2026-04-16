@@ -36,6 +36,7 @@ zellij = "latest"
 tmux = "latest"
 "gem:tmuxinator" = "latest"
 "cargo:tree-sitter-cli" = "latest"
+"cargo:psmux" = { version = "latest", os = ["windows"] }
 claude-squad = "latest"
 "github:asheshgoplani/agent-deck" = "latest"
 
