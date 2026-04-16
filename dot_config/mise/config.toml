@@ -36,6 +36,8 @@ zellij = "latest"
 tmux = "latest"
 "gem:tmuxinator" = "latest"
 "cargo:tree-sitter-cli" = "latest"
+claude-squad = "latest"
+"github:asheshgoplani/agent-deck" = "latest"
 
 [settings]
 auto_install = true

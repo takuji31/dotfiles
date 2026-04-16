@@ -1,1 +1,4 @@
 *.md
+{{ if ne .chezmoi.os "windows" }}
+Documents/
+{{ end }}
