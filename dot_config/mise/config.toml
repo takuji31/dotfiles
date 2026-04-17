@@ -39,6 +39,7 @@ tmux = "latest"
 "cargo:psmux" = { version = "latest", os = ["windows"] }
 claude-squad = "latest"
 "github:asheshgoplani/agent-deck" = { version = "latest", os = ["linux", "darwin"] }
+bun = "latest"
 
 [settings]
 auto_install = true
