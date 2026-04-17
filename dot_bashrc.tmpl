@@ -1,0 +1,38 @@
+add_path_head() {
+  case ":$PATH:" in
+    *":$1:"*) ;;
+    *) PATH="$1:$PATH" ;;
+  esac
+}
+
+if command -v mise >/dev/null 2>&1; then
+{{- if eq .chezmoi.os "windows" }}
+  eval "$(mise env -s bash)"
+  if [ -x /usr/bin/cygpath ]; then
+    export PATH="$(/usr/bin/cygpath -u -p "$PATH")"
+  fi
+{{- else }}
+  eval "$(mise activate bash)"
+{{- end }}
+fi
+
+add_path_head "$HOME/bin"
+add_path_head "$HOME/.local/bin"
+
+export GOPATH="$HOME/.go"
+add_path_head "$GOPATH/bin"
+
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+elif command -v code >/dev/null 2>&1; then
+  export EDITOR=code
+fi
+
+export PAGER=less
+export BAT_THEME="Catppuccin Mocha"
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+{{ if eq .chezmoi.os "windows" -}}
+export CLAUDE_CODE_NO_FLICKER=1
+
+{{ end -}}
+export PATH
