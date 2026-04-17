@@ -40,6 +40,7 @@ tmux = "latest"
 claude-squad = "latest"
 "github:asheshgoplani/agent-deck" = { version = "latest", os = ["linux", "darwin"] }
 bun = "latest"
+pnpm = "latest"
 
 [settings]
 auto_install = true
