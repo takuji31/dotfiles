@@ -15,3 +15,4 @@
 .config/fish/functions/room-enable-query-log.fish
 .config/fish/functions/react-adb-reverse.fish
 .config/fish/functions/fish_prompt.fish
+.claude/statusline.sh
