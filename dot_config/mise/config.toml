@@ -44,9 +44,10 @@ bun = "latest"
 pnpm = "latest"
 codex = "latest"
 "github:abhinav/git-spice" = "latest"
+rtk = "latest"
 
 [settings]
 auto_install = true
 
 [settings.ruby]
-compile = false
+compile = true
