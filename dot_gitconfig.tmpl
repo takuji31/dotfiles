@@ -64,10 +64,12 @@
   program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 {{ end -}}
 {{ if eq .chezmoi.os "windows" }}
+[user]
+  signingkey = ~/.ssh/id_ed25519.pub
+[tag]
+  gpgsign = true
 [gpg "ssh"]
-  program = "C:/Users/takuj/AppData/Local/Microsoft/WindowsApps/op-ssh-sign.exe"
-[core]
-  sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
+  program = "C:/Windows/System32/OpenSSH/ssh-keygen.exe"
 {{ end -}}
 {{ if eq .chezmoi.os "linux" }}
 {{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
