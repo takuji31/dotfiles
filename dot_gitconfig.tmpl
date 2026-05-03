@@ -75,9 +75,7 @@
 {{ end -}}
 {{ if eq .chezmoi.os "linux" }}
 {{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-[gpg "ssh"]
-  program = "/mnt/c/Users/takuj/AppData/Local/Microsoft/WindowsApps/op-ssh-sign.exe"
-[core]
-  sshCommand = ssh.exe
+[user]
+  signingkey = ~/.ssh/id_ed25519.pub
 {{   end }}
-{{ end }}
+{{ end -}}
