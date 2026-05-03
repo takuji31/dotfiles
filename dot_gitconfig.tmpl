@@ -70,6 +70,8 @@
   gpgsign = true
 [gpg "ssh"]
   program = "C:/Windows/System32/OpenSSH/ssh-keygen.exe"
+[core]
+  sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
 {{ end -}}
 {{ if eq .chezmoi.os "linux" }}
 {{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
