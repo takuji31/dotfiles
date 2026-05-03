@@ -44,7 +44,7 @@ config.use_fancy_tab_bar = true
 
 -- for windows
 if is_windows then
-  config.default_domain = 'WSL:Ubuntu'
+  config.default_prog = { 'pwsh.exe', '-NoLogo' }
 end
 
 -- for Mac
@@ -53,6 +53,8 @@ if not is_windows then
   config.send_composed_key_when_left_alt_is_pressed = false
   config.send_composed_key_when_right_alt_is_pressed = false
 end
+
+config.bypass_mouse_reporting_modifiers = 'SHIFT'
 
 config.keys = {
   {
@@ -67,27 +69,22 @@ config.keys = {
       end),
     },
   },
-}
-
-config.bypass_mouse_reporting_modifiers = 'SHIFT'
-
-config.keys = {
   {
     key = 'l',
     mods = 'CTRL|SHIFT|ALT',
-    action = wezterm.action.ShowLauncherArgs { flags = 'FUZZY|LAUNCH_MENU_ITEMS' },
+    action = act.ShowLauncherArgs { flags = 'FUZZY|LAUNCH_MENU_ITEMS|DOMAINS' },
   },
 }
 
-config.launch_menu = {
-  { label = '🤖 Claude Code', args = { 'claude' } },
-  {
-    label = '🚂 Claude Code (a-train-manager)',
-    args = { 'claude' },
-    cwd = '/home/takuji/projects/github.com/takuji31/a-train-manager',
-  },
-  { label = '📦 Lazygit', args = { 'lazygit' } },
-}
+if is_windows then
+  table.insert(config.keys, {
+    key = 'w',
+    mods = 'CTRL|ALT|SHIFT',
+    action = act.SpawnCommandInNewTab {
+      domain = { DomainName = 'WSL:Ubuntu' },
+    },
+  })
+end
 
 config.enable_kitty_graphics = true
 config.mux_enable_ssh_agent = false
