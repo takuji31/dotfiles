@@ -1,0 +1,4 @@
+interface:
+  display_name: "WT Worktrees"
+  short_description: "Operate Git worktrees with Worktrunk wt."
+  default_prompt: "Use wt to inspect, create, switch, merge, or remove worktrees safely."
