@@ -38,7 +38,7 @@ tmux = "latest"
 "gem:tmuxinator" = "latest"
 "github:tree-sitter/tree-sitter" = "latest"
 "cargo:psmux" = { version = "latest", os = ["windows"] }
-"cargo:worktrunk" = "latest"
+"cargo:worktrunk" = { version = "latest", os = ["linux", "darwin"] }
 claude-squad = "latest"
 "github:asheshgoplani/agent-deck" = { version = "latest", os = ["linux", "darwin"] }
 bun = "latest"
