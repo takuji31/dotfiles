@@ -5,9 +5,11 @@ if test -d /usr/local/share/android-sdk
   set -x ANDROID_SDK_ROOT /usr/local/share/android-sdk
 end
 
-set -x PAGER moor
-set -x ENABLE_TOOL_SEARCH true
-set -x MYSQL_PS1 '\U DB:\d DATE: \D MySQL: \v  \n>\_'
+if command -q moor
+  set -x PAGER moor
+else if command -q less
+  set -x PAGER less
+end
 
 if command -q nvim
   set -x EDITOR nvim
@@ -28,26 +30,3 @@ end
 if test -f $HOME/.fishconfig_local.fish
   source $HOME/.fishconfig_local.fish
 end
-
-if status is-interactive
-  check-modern-tools
-end
-
-{{ if eq .chezmoi.os "linux" }}
-  {{ if .chezmoi.kernel.osrelease | contains "microsoft" -}}
-    set -x GTK_IM_MODULE fcitx
-    set -x QT_IM_MODULE fcitx
-    set -x XMODIFIERS @im=fcitx
-    set -x DefaultIMModule fcitx
-
-    if command -q fcitx5
-      if not pgrep -x fcitx5 > /dev/null
-          DISPLAY=:0 fcitx5 -d --replace --disable=wayland &> /dev/null &
-      end
-    else
-      echo "fcitx5 is not installed. Install it with: sudo apt install fcitx5 fcitx5-mozc"
-    end
-  {{- end }}
-{{ end }}
-
-set -x CLAUDE_CODE_NO_FLICKER 1 
