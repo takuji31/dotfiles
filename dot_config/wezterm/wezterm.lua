@@ -29,6 +29,10 @@ config.check_for_updates_interval_seconds = 86400
 config.scrollback_lines = 10000
 config.exit_behavior = 'CloseOnCleanExit'
 
+config.set_environment_variables = {
+  XDG_CONFIG_HOME = wezterm.home_dir .. '/.config',
+  XDG_DATA_HOME = wezterm.home_dir .. '/.local/share',
+}
 
 local appearance = require 'appearance'
 if appearance.is_dark() then
