@@ -1,6 +1,6 @@
 ---
 name: wt-worktrees
-description: "Use when Git worktree or parallel branch work is needed, including requests mentioning git worktree/worktrees, separate working directories, parallel agents, isolated feature branches, or Worktrunk wt. Prefer Worktrunk wt over raw git worktree for inspecting, creating, switching, launching Claude Code or Codex in a worktree, merging, removing, pruning, and diagnosing shell integration/configuration."
+description: "Use when Git worktree or parallel branch work is needed, including requests mentioning git worktree/worktrees, separate working directories, parallel agents, isolated feature branches, Worktrunk wt, or Windows environments where wt conflicts with Windows Terminal. Prefer Worktrunk wt over raw git worktree for inspecting, creating, switching, launching Claude Code or Codex in a worktree, merging, removing, pruning, and diagnosing shell integration/configuration."
 ---
 
 # WT Worktrees
@@ -11,6 +11,7 @@ Use Worktrunk `wt` as the primary interface for Git worktree lifecycle tasks. Pr
 
 ## First Checks
 
+- On Windows, `wt` can resolve to Windows Terminal. Read every `wt ...` command in this skill as `git-wt ...` unless the environment clearly has a Worktrunk `wt` shim earlier in `PATH`.
 - Run `wt list` before changing worktrees so the current branch, dirty state, integration status, and existing worktree paths are visible.
 - Use `wt list --format=json` when scripting or when exact fields are needed.
 - Run `wt config show` when path layout, shell integration, hooks, or commit-message generation behavior is relevant.
