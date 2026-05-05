@@ -46,6 +46,7 @@ pnpm = "latest"
 codex = "latest"
 "github:abhinav/git-spice" = "latest"
 rtk = "latest"
+"aqua:noborus/ov" = "latest"
 
 [settings]
 auto_install = true
