@@ -18,12 +18,7 @@ $path
 export EDITOR=nvim
 
 #Pager
-if type lv > /dev/null 2>&1; then
-    export PAGER="lv"
-    export LV="-c -l"
-else
-    export PAGER="less"
-fi
+export PAGER="moor"
 
 #mysql prompt
 export MYSQL_PS1='\U DB:\d DATE: \D MySQL: \v  \n>\_'

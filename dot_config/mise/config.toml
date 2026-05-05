@@ -47,6 +47,7 @@ codex = "latest"
 "github:abhinav/git-spice" = "latest"
 rtk = "latest"
 "aqua:noborus/ov" = "latest"
+"aqua:walles/moor" = "latest"
 
 [settings]
 auto_install = true
