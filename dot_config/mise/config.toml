@@ -49,6 +49,7 @@ rtk = "latest"
 
 [settings]
 auto_install = true
+not_found_auto_install = false
 
 [settings.ruby]
 compile = true
