@@ -31,3 +31,4 @@
 .config/fish/functions/vim-session.fish
 .config/fisherman
 .claude/statusline.sh
+.agents/skills/wt-worktrees
