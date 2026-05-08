@@ -1,19 +1,26 @@
--- We almost always start by importing the wezterm module
 local wezterm = require 'wezterm'
--- Define a lua table to hold _our_ module's functions
 local module = {}
 
--- Returns a bool based on whether the host operating system's
--- appearance is light or dark.
-function module.is_dark()
-  -- wezterm.gui is not always available, depending on what
-  -- environment wezterm is operating in. Just return true
-  -- if it's not defined.
+local dark_config = { color_scheme = 'Catppuccin Mocha' }
+local light_config = { color_scheme = 'Catppuccin Latte' }
+
+function module.scheme_for(appearance)
+  if appearance and appearance:find('Dark') then
+    return dark_config
+  end
+  return light_config
+end
+
+function module.current()
   if wezterm.gui then
-    -- Some systems report appearance like "Dark High Contrast"
-    -- so let's just look for the string "Dark" and if we find
-    -- it assume appearance is dark.
-    return wezterm.gui.get_appearance():find("Dark")
+    return module.scheme_for(wezterm.gui.get_appearance())
+  end
+  return dark_config
+end
+
+function module.is_dark()
+  if wezterm.gui then
+    return wezterm.gui.get_appearance():find('Dark') ~= nil
   end
   return true
 end

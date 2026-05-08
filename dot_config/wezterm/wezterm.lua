@@ -35,11 +35,20 @@ config.set_environment_variables = {
 }
 
 local appearance = require 'appearance'
-if appearance.is_dark() then
-  config.color_scheme = 'Tokyo Night'
-else
-  config.color_scheme = 'Tokyo Night Day'
-end
+config.color_scheme = appearance.current().color_scheme
+
+wezterm.on('window-config-reloaded', function(window)
+  if not wezterm.gui then
+    return
+  end
+  local desired = appearance.scheme_for(wezterm.gui.get_appearance())
+  local overrides = window:get_config_overrides() or {}
+  if overrides.color_scheme == desired.color_scheme then
+    return
+  end
+  overrides.color_scheme = desired.color_scheme
+  window:set_config_overrides(overrides)
+end)
 
 config.default_prog = { '/opt/homebrew/bin/fish', '-l' }
 wezterm.log_info("hello world! my name is " .. wezterm.hostname())
