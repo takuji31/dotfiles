@@ -48,6 +48,7 @@ wezterm.on('window-config-reloaded', function(window)
   end
   overrides.color_scheme = desired.color_scheme
   window:set_config_overrides(overrides)
+  appearance.notify_zellij(appearance.is_dark())
 end)
 
 config.default_prog = { '/opt/homebrew/bin/fish', '-l' }

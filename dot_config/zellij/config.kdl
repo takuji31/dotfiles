@@ -282,7 +282,16 @@ web_client {
  
 // Choose the theme that is specified in the themes section.
 // Default: default
-theme "catppuccin-macchiato"
+// Used as the startup theme on terminals that don't report appearance via
+// CSI 2031 (e.g. current WezTerm). Light by default; flip with `Alt t` if needed.
+theme "catppuccin-latte"
+
+// Light/Dark themes used when the host terminal reports its appearance via
+// CSI 2031 / DSR 997, or when toggled with `zellij action set-{light,dark}-theme`.
+// Ghostty supports CSI 2031 natively; for WezTerm we drive it from
+// dot_config/wezterm/appearance.lua until upstream lands the protocol.
+theme_dark "catppuccin-macchiato"
+theme_light "catppuccin-latte"
  
 // Choose the base input mode of zellij.
 // Default: normal
