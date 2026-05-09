@@ -1,3 +1,7 @@
+: "${XDG_CONFIG_HOME:=$HOME/.config}"
+: "${XDG_DATA_HOME:=$HOME/.local/share}"
+export XDG_CONFIG_HOME XDG_DATA_HOME
+
 if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate bash)"
 fi
