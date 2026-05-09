@@ -49,6 +49,7 @@ rtk = "latest"
 "aqua:noborus/ov" = "latest"
 "aqua:walles/moor" = "latest"
 python = "latest"
+ffmpeg = "latest"
 
 [settings]
 auto_install = true
