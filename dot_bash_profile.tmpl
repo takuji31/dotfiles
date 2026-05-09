@@ -1,0 +1,82 @@
+add_path_head() {
+  case ":$PATH:" in
+    *":$1:"*) ;;
+    *) PATH="$1:$PATH" ;;
+  esac
+}
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+{{ if eq .chezmoi.os "darwin" -}}
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+{{- else if eq .chezmoi.os "linux" -}}
+if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+{{- end }}
+
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate bash --shims)"
+fi
+
+[ -d "$HOME/.turso" ] && add_path_head "$HOME/.turso"
+add_path_head /usr/local/bin
+add_path_head "$HOME/local/bin"
+add_path_head "$HOME/.local/bin"
+add_path_head "$HOME/bin"
+
+{{ if eq .chezmoi.os "windows" -}}
+[ -d "$HOME/AppData/Local/Microsoft/WinGet/Links" ] && add_path_head "$HOME/AppData/Local/Microsoft/WinGet/Links"
+{{- end }}
+
+if command -v go >/dev/null 2>&1; then
+  _gopath="$(go env GOPATH 2>/dev/null)"
+  export GOPATH="${_gopath:-$HOME/.go}"
+  unset _gopath
+else
+  export GOPATH="$HOME/.go"
+fi
+add_path_head "$GOPATH/bin"
+
+{{ if eq .chezmoi.os "darwin" -}}
+if [ -d /usr/local/share/android-sdk ]; then
+  export ANDROID_SDK_ROOT=/usr/local/share/android-sdk
+  add_path_head /usr/local/share/android-sdk/platform-tools
+  add_path_head /usr/local/share/android-sdk/cmdline-tools/latest/bin
+fi
+
+if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then
+  . "$HOME/google-cloud-sdk/path.bash.inc"
+fi
+{{- end }}
+
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+elif command -v code >/dev/null 2>&1; then
+  export EDITOR="code -w"
+fi
+
+if command -v moor >/dev/null 2>&1; then
+  export PAGER=moor
+elif command -v less >/dev/null 2>&1; then
+  export PAGER=less
+fi
+
+export BAT_THEME="Catppuccin Mocha"
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+if command -v fzf >/dev/null 2>&1; then
+  export FZF_DEFAULT_OPTS="--height=40% --layout=reverse --info=inline --border"
+  if command -v fd >/dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
+  fi
+fi
+
+export PATH
+
+case $- in
+  *i*) [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc" ;;
+esac

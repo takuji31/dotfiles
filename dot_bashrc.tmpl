@@ -1,107 +1,32 @@
-add_path_head() {
-  case ":$PATH:" in
-    *":$1:"*) ;;
-    *) PATH="$1:$PATH" ;;
-  esac
-}
-
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-
-{{ if eq .chezmoi.os "darwin" -}}
-if [ -x /opt/homebrew/bin/brew ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-{{- else if eq .chezmoi.os "linux" -}}
-if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
-{{- end }}
-
 if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate bash)"
 fi
 
-[ -d "$HOME/.turso" ] && add_path_head "$HOME/.turso"
-add_path_head /usr/local/bin
-add_path_head "$HOME/local/bin"
-add_path_head "$HOME/.local/bin"
-add_path_head "$HOME/bin"
-
-if command -v go >/dev/null 2>&1; then
-  _gopath="$(go env GOPATH 2>/dev/null)"
-  export GOPATH="${_gopath:-$HOME/.go}"
-  unset _gopath
-else
-  export GOPATH="$HOME/.go"
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init bash)"
 fi
-add_path_head "$GOPATH/bin"
-
-{{ if eq .chezmoi.os "darwin" -}}
-if [ -d /usr/local/share/android-sdk ]; then
-  export ANDROID_SDK_ROOT=/usr/local/share/android-sdk
-  add_path_head /usr/local/share/android-sdk/platform-tools
-  add_path_head /usr/local/share/android-sdk/cmdline-tools/latest/bin
-fi
-
-if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then
-  . "$HOME/google-cloud-sdk/path.bash.inc"
-fi
-{{- end }}
-
-if command -v nvim >/dev/null 2>&1; then
-  export EDITOR=nvim
-elif command -v code >/dev/null 2>&1; then
-  export EDITOR="code -w"
-fi
-
-if command -v moor >/dev/null 2>&1; then
-  export PAGER=moor
-elif command -v less >/dev/null 2>&1; then
-  export PAGER=less
-fi
-
-export BAT_THEME="Catppuccin Mocha"
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-
 if command -v fzf >/dev/null 2>&1; then
-  export FZF_DEFAULT_OPTS="--height=40% --layout=reverse --info=inline --border"
-  if command -v fd >/dev/null 2>&1; then
-    export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
-  fi
+  eval "$(fzf --bash)"
 fi
-
-export PATH
-
-case $- in
-  *i*)
-    if command -v starship >/dev/null 2>&1; then
-      eval "$(starship init bash)"
-    fi
-    if command -v fzf >/dev/null 2>&1; then
-      eval "$(fzf --bash)"
-    fi
-    if command -v zoxide >/dev/null 2>&1; then
-      eval "$(zoxide init bash)"
-    fi
-    if command -v navi >/dev/null 2>&1; then
-      eval "$(navi widget bash)"
-    fi
-    if command -v atuin >/dev/null 2>&1; then
-      eval "$(atuin init bash --disable-up-arrow)"
-    fi
-    if command -v git-spice >/dev/null 2>&1; then
-      alias gs=git-spice
-    fi
-    if command -v zellij >/dev/null 2>&1; then
-      alias zj="zellij"
-      alias za="zellij attach"
-      alias zl="zellij list-sessions"
-      alias zk="zellij kill-session"
-      alias zp="zellij --layout .zellij.kdl"
-    fi
-    ;;
-esac
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init bash)"
+fi
+if command -v navi >/dev/null 2>&1; then
+  eval "$(navi widget bash)"
+fi
+if command -v atuin >/dev/null 2>&1; then
+  eval "$(atuin init bash --disable-up-arrow)"
+fi
+if command -v git-spice >/dev/null 2>&1; then
+  alias gs=git-spice
+fi
+if command -v zellij >/dev/null 2>&1; then
+  alias zj="zellij"
+  alias za="zellij attach"
+  alias zl="zellij list-sessions"
+  alias zk="zellij kill-session"
+  alias zp="zellij --layout .zellij.kdl"
+fi
 
 {{ if eq .chezmoi.os "windows" -}}
 if command -v git-wt >/dev/null 2>&1; then eval "$(command git-wt config shell init bash)"; fi
