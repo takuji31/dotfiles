@@ -1,0 +1,32 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $cfg := dict -}}
+{{- if ne (.chezmoi.stdin | trim) "" -}}
+  {{- $cfg = fromToml .chezmoi.stdin -}}
+{{- end -}}
+
+{{- $cfg = $cfg | setValueAtPath "model" "gpt-5.5" -}}
+{{- $cfg = $cfg | setValueAtPath "model_auto_compact_token_limit" 167700 -}}
+{{- $cfg = $cfg | setValueAtPath "model_reasoning_effort" "high" -}}
+{{- $cfg = $cfg | setValueAtPath "personality" "pragmatic" -}}
+{{- $cfg = $cfg | setValueAtPath "sandbox_mode" "workspace-write" -}}
+{{- $cfg = $cfg | setValueAtPath "sandbox_workspace_write.network_access" true -}}
+
+{{- $cfg = $cfg | setValueAtPath "features.memories" true -}}
+{{- $cfg = $cfg | setValueAtPath "features.workspace_dependencies" true -}}
+{{- $cfg = $cfg | setValueAtPath "features.remote_connections" true -}}
+{{- $cfg = $cfg | setValueAtPath "features.terminal_resize_reflow" true -}}
+{{- $cfg = $cfg | setValueAtPath "features.goals" true -}}
+{{- $cfg = $cfg | setValueAtPath "features.default_mode_request_user_input" true -}}
+
+{{- $cfg = $cfg | setValueAtPath "memories.generate_memories" true -}}
+{{- $cfg = $cfg | setValueAtPath "memories.use_memories" true -}}
+{{- $cfg = $cfg | setValueAtPath "memories.disable_on_external_context" true -}}
+
+{{- $cfg = $cfg | setValueAtPath "plugins.github@openai-curated.enabled" true -}}
+{{- $cfg = $cfg | setValueAtPath "plugins.documents@openai-primary-runtime.enabled" true -}}
+{{- $cfg = $cfg | setValueAtPath "plugins.spreadsheets@openai-primary-runtime.enabled" true -}}
+{{- $cfg = $cfg | setValueAtPath "plugins.presentations@openai-primary-runtime.enabled" true -}}
+{{- $cfg = $cfg | setValueAtPath "plugins.notion@openai-curated.enabled" true -}}
+{{- $cfg = $cfg | setValueAtPath "plugins.browser-use@openai-bundled.enabled" true -}}
+
+{{- $cfg | toToml -}}
