@@ -2,4 +2,7 @@
 {{ if ne .chezmoi.os "windows" }}
 AppData/
 Documents/
+OneDrive/
+OneDrive/ドキュメント/
+OneDrive/ドキュメント/PowerShell/
 {{ end }}
