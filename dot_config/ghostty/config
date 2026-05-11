@@ -24,3 +24,7 @@ cursor-style-blink = false
 # Window
 window-padding-x = 4
 window-padding-y = 4
+
+# Keyboard: treat Option as Alt so tmux/Zellij can receive Alt+key
+# (otherwise Option+i/h produce ˆ/˙ instead of sending Alt modifier)
+macos-option-as-alt = true
