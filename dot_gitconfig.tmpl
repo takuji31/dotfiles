@@ -54,15 +54,11 @@
 [pull]
 	ff = only
 [user]
-  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjYT/XAuG+s36L6Jt03GVCBfBglNgdy3I/jDxJnVtDa
+  signingkey = ~/.ssh/id_ed25519.pub
 [gpg]
   format = ssh
 [commit]
   gpgsign = true
-{{ if eq .chezmoi.os "darwin" -}}
-[gpg "ssh"]
-  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-{{ end -}}
 {{ if eq .chezmoi.os "windows" }}
 [user]
   signingkey = ~/.ssh/id_ed25519.pub
