@@ -32,3 +32,8 @@
 .config/fisherman
 .claude/statusline.sh
 .agents/skills/wt-worktrees
+.zsh/00_mise.zsh
+.zsh/01_alias.zsh
+.zsh/02_function.zsh
+.zsh/03_prompt.zsh
+.zsh/50_git-spice.zsh

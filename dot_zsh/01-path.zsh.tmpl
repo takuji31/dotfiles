@@ -1,0 +1,8 @@
+{{ if eq .chezmoi.os "darwin" -}}
+typeset -U path
+path=(
+/usr/local/share/android-sdk/cmdline-tools/latest/bin(N-/)
+/usr/local/share/android-sdk/platform-tools(N-/)
+$path
+)
+{{- end }}

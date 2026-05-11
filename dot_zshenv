@@ -1,15 +1,16 @@
 export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
 
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 
 typeset -U path
 path=(
-"/Applications/Sublime Text.app/Contents/SharedSupport/bin"(N-/)
-/Applications/MacVim.app/Contents/MacOS(N-/)
-$HOME/.composer/vendor/bin/(N-/)
+$HOME/.local/bin(N-/)
 $HOME/local/bin(N-/)
 $HOME/bin(N-/)
+$HOME/.composer/vendor/bin(N-/)
+$HOME/.turso(N-/)
 /usr/local/bin(N-/)
 /usr/sbin(N-/)
 /usr/bin(N-/)
@@ -18,23 +19,22 @@ $HOME/bin(N-/)
 $path
 )
 
-export EDITOR=nvim
-
-#Pager
-export PAGER="moor"
-
 #mysql prompt
 export MYSQL_PS1='\U DB:\d DATE: \D MySQL: \v  \n>\_'
 
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-if command -v go > /dev/null 2>&1; then
-    export GOPATH=$HOME/.go
-    path=($GOPATH/bin(N-/) $path)
+# Android SDK
+if [[ -d /usr/local/share/android-sdk ]]; then
+    export ANDROID_SDK_ROOT=/usr/local/share/android-sdk
 fi
 
 #source local env
 [[ -e $HOME/.zshenv_local ]] && source $HOME/.zshenv_local
 
-#eval homebrew
-[[ -e /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+#eval homebrew (PATH/MANPATH/INFOPATH)
+if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
