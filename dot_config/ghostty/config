@@ -1,3 +1,6 @@
+# Shell
+command = /opt/homebrew/bin/fish --login --interactive
+
 # Font
 font-family = Firge35Nerd Console
 font-size = 18
