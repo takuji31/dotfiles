@@ -3,8 +3,6 @@ node = "lts"
 go = "latest"
 ruby = "latest"
 rust = "latest"
-
-# CLI tools
 eza = "latest"
 bat = "latest"
 fd = "latest"
@@ -50,6 +48,7 @@ rtk = "latest"
 "aqua:walles/moor" = "latest"
 python = "latest"
 ffmpeg = "latest"
+sheldon = "latest"
 
 [settings]
 auto_install = true
