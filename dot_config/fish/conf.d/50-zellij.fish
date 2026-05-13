@@ -1,8 +1,8 @@
-# Zellij aliases
+# Zellij abbreviations
 if command -q zellij
-    alias zj="zellij"
-    alias za="zellij attach"
-    alias zl="zellij list-sessions"
-    alias zk="zellij kill-session"
-    alias zp="zellij --layout .zellij.kdl"
+    abbr -a zj zellij
+    abbr -a za 'zellij attach'
+    abbr -a zl 'zellij list-sessions'
+    abbr -a zk 'zellij kill-session'
+    abbr -a zp 'zellij --layout .zellij.kdl'
 end
