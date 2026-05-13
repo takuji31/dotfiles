@@ -9,16 +9,16 @@ end
 {{- end }}
 
 if test -d "$HOME/.turso"
-    fish_add_path "$HOME/.turso"
+    fish_add_path -g "$HOME/.turso"
 end
 
-fish_add_path /usr/local/bin
-fish_add_path $HOME/local/bin
-fish_add_path $HOME/.local/bin
-fish_add_path $HOME/bin
+fish_add_path -g /usr/local/bin
+fish_add_path -g $HOME/local/bin
+fish_add_path -g $HOME/.local/bin
+fish_add_path -g $HOME/bin
 
 {{ if eq .chezmoi.os "darwin" -}}
-fish_add_path /usr/local/share/android-sdk/cmdline-tools/latest/bin
-fish_add_path /usr/local/share/android-sdk/platform-tools
+fish_add_path -g /usr/local/share/android-sdk/cmdline-tools/latest/bin
+fish_add_path -g /usr/local/share/android-sdk/platform-tools
 {{- end }}
 
