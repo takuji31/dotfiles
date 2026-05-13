@@ -1,0 +1,138 @@
+# AGENTS.md
+
+このファイルは、コーディングエージェントがこのリポジトリのコードを扱う際のガイダンスを提供します。
+
+## 概要
+
+これはtakuji31の開発環境用の個人dotfilesリポジトリで、[chezmoi](https://www.chezmoi.io/)で管理されています。chezmoiはテンプレート機能とクロスプラットフォーム対応をサポートするdotfile管理ツールです。このリポジトリにはシェル設定、ターミナルマルチプレクサ設定、各種開発ツールの設定が含まれています。
+
+## 主要なコマンド
+
+### chezmoiの操作
+
+```bash
+# すべてのdotfilesをホームディレクトリに適用
+chezmoi apply
+
+# 適用せずに変更内容をプレビュー
+chezmoi diff
+
+# dotfileを編集（設定されたエディタで自動的に開く）
+chezmoi edit ~/.zshrc
+
+# 新しいファイルをchezmoi管理下に追加
+chezmoi add ~/.newconfig
+
+# リポジトリからdotfilesを更新
+chezmoi update
+
+# 現在の状態を検証
+chezmoi verify
+```
+
+### 変更のテスト
+
+このリポジトリは設定ファイルを含むため、従来的なビルド/テストコマンドはありません。変更をテストするには：
+
+1. `chezmoi diff`で適用前に変更内容をプレビュー
+2. `chezmoi apply`で変更を適用
+3. 関連するシェル/アプリケーションを再起動して設定をテスト
+
+## リポジトリ構造
+
+### chezmoiのファイル命名規則
+
+chezmoiは特殊なプレフィックスを使ってファイルの処理方法を決定します：
+
+- `dot_`プレフィックス: `.`に変換（例: `dot_zshrc` → `~/.zshrc`）
+- `.tmpl`サフィックス: Goテンプレートで処理されるテンプレートファイル
+- `executable_`プレフィックス: 適用後に実行可能にされるファイル
+- ディレクトリ名も同じルールに従う（例: `dot_config/` → `~/.config/`）
+
+### 主要な設定エリア
+
+**シェル設定:**
+- `dot_zshrc`: 履歴、キーバインド、補完を含むメインのzsh設定
+- `dot_zsh/`: 機能別に分割されたモジュラーなzsh設定（01_alias.zsh、02_function.zsh、03_prompt.zsh）
+- `dot_config/fish/config.fish`: PATHセットアップと環境変数を含むfishシェル設定
+- `dot_config/fish/functions/`: カスタムfishシェル関数
+
+**ターミナルマルチプレクサ:**
+- `dot_tmux.conf`: screen風のキーバインドを持つtmux設定（プレフィックス: Ctrl-Z）
+- `dot_tmuxinator/`: tmuxセッション設定
+
+**Git設定:**
+- `dot_gitconfig.tmpl`: プラットフォーム固有のGPG署名を含むテンプレート化されたgit設定
+  - macOSとWSLで1PasswordによるSSH署名を使用
+  - DarwinとWSLで異なる`op-ssh-sign`パス
+
+**ターミナルエミュレータ:**
+- `dot_config/wezterm/`: WeZTermターミナルエミュレータ設定
+
+**その他のツール:**
+- `dot_peco/`: peco（インタラクティブフィルタリングツール）設定
+- `.chezmoiignore`: chezmoi管理から除外するファイル
+
+### プラットフォーム固有の処理
+
+`dot_gitconfig.tmpl`はプラットフォーム検出の例を示しています：
+- macOS固有の設定に`{{ if eq .chezmoi.os "darwin" }}`を使用
+- Linux/WSL設定にWSL検出付きの`{{ if eq .chezmoi.os "linux" }}`を使用
+- GPG署名は1Passwordの`op-ssh-sign`で設定され、プラットフォームごとに異なるパス
+
+## 作業ルール
+
+- 設定ファイルを変更したら自動で `chezmoi apply` を実行する（毎回確認不要）
+- `chezmoi apply` で競合が発生した場合、`--force` で上書きしない。まず `chezmoi diff` で差分を確認し、ホーム側が正しければ `chezmoi re-add <ファイル>` で取り込む
+- OSごとに設定ファイルのパスだけが違い、内容は同一でよい場合は、同じ内容のファイルをコピーして複数管理しない。共通の実体ファイルを1つ置き、OS固有のパス側は `symlink_` で管理する
+
+## 既知の落とし穴
+
+### fish conf.d の subprocess が stdin を食う問題
+
+tmuxinator から起動した fish に対して tmux `send-keys` で送られたコマンドが実行されない事象が起きた場合、**fish の起動中に走る subprocess が pty の stdin に溜まっていた入力を吸い込んでいる**ことを疑う。
+
+- 典型例: `git-spice shell completion fish | source`
+  - git-spice は起動時に OSC 11 (背景色クエリ) / DA1 (Device Attributes) を書き込み、端末からの応答を stdin から読もうとする
+  - tmuxinator が事前に `send-keys` で pty に流し込んだ `claude\n` 等を応答と誤認して消費する
+  - 結果: fish のプロンプトは出るがコマンドが実行されない
+- fish 4.x の挙動・tmux 3.6 の挙動・mise のインストールチェックはいずれも無罪(検証済み)
+- **対策**: 動的生成していた完了スクリプトを `dot_config/fish/completions/` に静的ファイルとして置き、conf.d からは `alias` 定義のみ残す(`git-spice` は実際この方針で対応済み)
+- **予防**: `cmd | source` 系を conf.d に追加する際は `cmd < /dev/null | source` にして subprocess の stdin を切断する。これで将来どんなツールが入ってきても同種の事故を防げる
+- 検証方法: pty に pre-load したバイト列を subprocess が吸い込むかを Python `pty.fork()` で再現できる
+
+## アーキテクチャに関する注意事項
+
+### シェル環境のセットアップ
+
+このリポジトリは異なる哲学を持つ複数のシェルをサポートしています：
+
+**zshセットアップ:**
+- `~/.zsh/*.zsh`ファイルから読み込まれるモジュラー設定
+- `~/.zshrc_local`によるローカルオーバーライド（追跡されない）
+- tmux互換性のためのSSHエージェントソケット管理
+- Volta（JavaScriptツールマネージャ）統合
+
+**fishセットアップ:**
+- PATH管理のための`add_path`関数の多用
+- 利用可能なツール（nodenv、plenv、go等）に基づく条件付き環境セットアップ
+- `~/.fishconfig_local.fish`によるローカルオーバーライド（追跡されない）
+- Starshipプロンプト統合
+
+### 開発ツール統合
+
+設定には以下の自動セットアップが含まれています：
+- Node.js: Voltaとレガシーなnodenvサポート
+- Ruby: plenv、システムruby、Homebrewのruby
+- Go: GOROOT/GOPATH設定
+- Android SDK: パスと環境変数のセットアップ
+- VS Code: デフォルトエディタおよびdiffツールとして設定
+
+### ローカルカスタマイズパターン
+
+両シェルともリポジトリで追跡されないローカルカスタマイズファイルをサポートしています：
+- zsh用の`~/.zshrc_local`
+- fish用の`~/.fishconfig_local.fish`
+- git用の`~/.gitconfig.local`
+
+ユーザー固有の変更や機密データを含む変更を行う場合は、追跡される設定ではなく、これらのローカルファイルに追加してください。
