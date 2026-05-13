@@ -1,4 +1,10 @@
 local function is_wsl()
+  if vim.uv.os_uname().sysname ~= "Linux" then
+    return false
+  end
+  if vim.fn.filereadable("/proc/version") ~= 1 then
+    return false
+  end
   local output = vim.fn.readfile("/proc/version")
   if #output > 0 and output[1]:lower():find("microsoft") then
     return true
