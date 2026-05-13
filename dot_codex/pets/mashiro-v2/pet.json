@@ -1,0 +1,6 @@
+{
+  "id": "mashiro-v2",
+  "displayName": "ましろV2",
+  "description": "A Mashiro variant whose idle animation uses a closer bust-up view while preserving the original Codex digital pet poses for the other states.",
+  "spritesheetPath": "spritesheet.webp"
+}
