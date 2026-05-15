@@ -6,6 +6,14 @@ if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate bash)"
 fi
 
+if command -v gh >/dev/null 2>&1; then
+  _github_token="$(gh auth token </dev/null 2>/dev/null)"
+  if [ -n "$_github_token" ]; then
+    export GITHUB_TOKEN="$_github_token"
+  fi
+  unset _github_token
+fi
+
 if command -v starship >/dev/null 2>&1; then
   eval "$(starship init bash)"
 fi

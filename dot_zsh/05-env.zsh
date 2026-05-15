@@ -11,3 +11,11 @@ if (( $+commands[moor] )); then
 elif (( $+commands[less] )); then
     export PAGER=less
 fi
+
+if (( $+commands[gh] )); then
+    _github_token="$(gh auth token </dev/null 2>/dev/null)"
+    if [[ -n "$_github_token" ]]; then
+        export GITHUB_TOKEN="$_github_token"
+    fi
+    unset _github_token
+fi
