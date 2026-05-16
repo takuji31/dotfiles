@@ -53,6 +53,7 @@ ffmpeg = "latest"
 sheldon = "latest"
 turso = "latest"
 glow = "latest"
+circleci = "latest"
 
 [settings]
 auto_install = true
