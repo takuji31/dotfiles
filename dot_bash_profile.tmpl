@@ -59,8 +59,18 @@ fi
 
 if command -v nvim >/dev/null 2>&1; then
   export EDITOR=nvim
+elif command -v zed >/dev/null 2>&1; then
+  export EDITOR="zed -w"
 elif command -v code >/dev/null 2>&1; then
   export EDITOR="code -w"
+fi
+
+if command -v zed >/dev/null 2>&1; then
+  export VISUAL="zed -w"
+elif command -v code >/dev/null 2>&1; then
+  export VISUAL="code -w"
+elif [ -n "$EDITOR" ]; then
+  export VISUAL="$EDITOR"
 fi
 
 if command -v moor >/dev/null 2>&1; then

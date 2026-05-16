@@ -13,8 +13,18 @@ end
 
 if command -q nvim
   set -x EDITOR nvim
+else if command -q zed
+  set -x EDITOR "zed -w"
 else if command -q code
   set -x EDITOR "code -w"
+end
+
+if command -q zed
+  set -x VISUAL "zed -w"
+else if command -q code
+  set -x VISUAL "code -w"
+else if set -q EDITOR
+  set -x VISUAL $EDITOR
 end
 
 if command -q gh

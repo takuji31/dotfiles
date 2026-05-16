@@ -1,8 +1,19 @@
-# EDITOR: prefer nvim, fall back to code
+# EDITOR: terminal-first (used by sudoedit / crontab / headless tools)
 if (( $+commands[nvim] )); then
     export EDITOR=nvim
+elif (( $+commands[zed] )); then
+    export EDITOR="zed -w"
 elif (( $+commands[code] )); then
     export EDITOR="code -w"
+fi
+
+# VISUAL: GUI-first (used by git etc. — prefer zed over code)
+if (( $+commands[zed] )); then
+    export VISUAL="zed -w"
+elif (( $+commands[code] )); then
+    export VISUAL="code -w"
+elif [[ -n "$EDITOR" ]]; then
+    export VISUAL="$EDITOR"
 fi
 
 # PAGER: prefer moor, fall back to less
