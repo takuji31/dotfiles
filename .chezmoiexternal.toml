@@ -15,3 +15,9 @@
         args = ["--depth", "1"]
     [".tmux/plugins/tmux-powerkit".pull]
         args = ["--ff-only"]
+
+# private repos contains private info
+[".config/cmux"]
+    type = "git-repo"
+    url = "git@github.com:takuji31/cmux-config.git"
+    refreshPeriod = "168h"
