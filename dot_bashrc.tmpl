@@ -39,6 +39,10 @@ if command -v zellij >/dev/null 2>&1; then
   alias zk="zellij kill-session"
   alias zp="zellij --layout .zellij.kdl"
 fi
+if command -v claude >/dev/null 2>&1; then
+  alias opusplan='claude --model opusplan --permission-mode plan'
+  alias sonnet='claude --model sonnet --settings '"'"'{"advisorModel":"opus"}'"'"''
+fi
 
 {{ if eq .chezmoi.os "windows" -}}
 if command -v git-wt >/dev/null 2>&1; then eval "$(command git-wt config shell init bash)"; fi
