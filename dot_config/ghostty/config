@@ -18,7 +18,7 @@ unfocused-split-opacity = 0.85
 copy-on-select = clipboard
 
 # Cursor
-cursor-style = bar
+cursor-style = block
 cursor-style-blink = false
 
 # Window
