@@ -11,19 +11,20 @@ else if command -q less
   set -x PAGER less
 end
 
-if command -q nvim
+# EDITOR / VISUAL: CUI editors only. Prefer the edit-in-pane wrapper, which
+# splits the pane inside zellij / tmux / cmux and falls back to direct exec
+# outside any multiplexer. MY_CUI_EDITOR overrides the wrapper's editor choice.
+if command -q edit-in-pane
+  set -x EDITOR edit-in-pane
+else if command -q nvim
   set -x EDITOR nvim
-else if command -q zed
-  set -x EDITOR "zed -w"
-else if command -q code
-  set -x EDITOR "code -w"
+else if command -q hx
+  set -x EDITOR hx
+else if command -q vim
+  set -x EDITOR vim
 end
 
-if command -q zed
-  set -x VISUAL "zed -w"
-else if command -q code
-  set -x VISUAL "code -w"
-else if set -q EDITOR
+if set -q EDITOR
   set -x VISUAL $EDITOR
 end
 

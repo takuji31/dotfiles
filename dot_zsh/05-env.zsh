@@ -1,18 +1,17 @@
-# EDITOR: terminal-first (used by sudoedit / crontab / headless tools)
-if (( $+commands[nvim] )); then
+# EDITOR / VISUAL: CUI editors only. Prefer the edit-in-pane wrapper, which
+# splits the pane inside zellij / tmux / cmux and falls back to direct exec
+# outside any multiplexer. MY_CUI_EDITOR overrides the wrapper's editor choice.
+if (( $+commands[edit-in-pane] )); then
+    export EDITOR=edit-in-pane
+elif (( $+commands[nvim] )); then
     export EDITOR=nvim
-elif (( $+commands[zed] )); then
-    export EDITOR="zed -w"
-elif (( $+commands[code] )); then
-    export EDITOR="code -w"
+elif (( $+commands[hx] )); then
+    export EDITOR=hx
+elif (( $+commands[vim] )); then
+    export EDITOR=vim
 fi
 
-# VISUAL: GUI-first (used by git etc. — prefer zed over code)
-if (( $+commands[zed] )); then
-    export VISUAL="zed -w"
-elif (( $+commands[code] )); then
-    export VISUAL="code -w"
-elif [[ -n "$EDITOR" ]]; then
+if [[ -n "$EDITOR" ]]; then
     export VISUAL="$EDITOR"
 fi
 

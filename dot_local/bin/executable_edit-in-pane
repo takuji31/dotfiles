@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+# Open files in a CUI editor, splitting the current pane in zellij / tmux / cmux.
+# When no multiplexer is detected, exec the editor directly.
+
+set -u
+
+pick_editor() {
+    if [ -n "${MY_CUI_EDITOR:-}" ]; then
+        printf '%s' "$MY_CUI_EDITOR"
+        return 0
+    fi
+    local cand
+    for cand in nvim hx vim vi; do
+        if command -v "$cand" >/dev/null 2>&1; then
+            printf '%s' "$cand"
+            return 0
+        fi
+    done
+    return 1
+}
+
+quote_args() {
+    local a out=""
+    for a in "$@"; do
+        out+=" $(printf '%q' "$a")"
+    done
+    printf '%s' "$out"
+}
+
+editor=$(pick_editor) || {
+    echo "edit-in-pane: no CUI editor found (looked for nvim, hx, vim, vi)" >&2
+    exit 127
+}
+
+# zellij
+if [ -n "${ZELLIJ_SESSION_NAME:-}" ] && command -v zellij >/dev/null 2>&1; then
+    exec zellij run --close-on-exit --direction right --block-until-exit -- "$editor" "$@"
+fi
+
+# tmux
+if [ -n "${TMUX:-}" ] && command -v tmux >/dev/null 2>&1; then
+    chan="edit-in-pane-$$-$(date +%s 2>/dev/null)"
+    inner="$(printf '%q' "$editor")$(quote_args "$@")"
+    if tmux split-window -h sh -c "$inner; tmux wait-for -S $(printf '%q' "$chan")"; then
+        tmux wait-for "$chan"
+        exit 0
+    fi
+    echo "edit-in-pane: tmux split-window failed, falling back" >&2
+fi
+
+debug() {
+    [ "${EDIT_IN_PANE_DEBUG:-}" = "1" ] && printf 'edit-in-pane: %s\n' "$*" >&2
+}
+
+# cmux
+if [ -n "${CMUX_WORKSPACE_ID:-}" ] && command -v cmux >/dev/null 2>&1; then
+    split_out=$(cmux new-split right --focus true 2>/dev/null) || split_out=""
+    debug "new-split output: $split_out"
+    surface_id=""
+    if [ -n "$split_out" ]; then
+        surface_id=$(printf '%s' "$split_out" | grep -oE 'surface:[0-9]+' | head -n1)
+        if [ -z "$surface_id" ]; then
+            surface_id=$(printf '%s' "$split_out" | grep -oE '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}' | head -n1)
+        fi
+    fi
+    debug "surface_id=$surface_id"
+    if [ -n "$surface_id" ]; then
+        # Wait for the new surface's shell to draw something before we send.
+        # cmux send writes bytes to the PTY; bytes arriving before the shell
+        # is reading them are dropped on the floor.
+        ready=0
+        for _ in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+            sleep 0.1
+            screen=$(cmux read-screen --surface "$surface_id" 2>/dev/null || true)
+            if printf '%s' "$screen" | grep -q '[[:graph:]]'; then
+                ready=1
+                break
+            fi
+        done
+        debug "prompt ready=$ready"
+        # Replace the surface's shell with the editor so the surface closes
+        # as soon as the editor exits. Then poll until the surface disappears.
+        inner="$(printf '%q' "$editor")$(quote_args "$@")"
+        cmd_string="exec ${inner}"
+        debug "sending: $cmd_string"
+        cmux send --surface "$surface_id" -- "${cmd_string}"$'\r' >/dev/null
+        debug "sent; polling list-pane-surfaces until $surface_id is gone"
+        while :; do
+            if ! cmux list-pane-surfaces 2>/dev/null | tr ' \t,' '\n' | grep -Fxq "$surface_id"; then
+                break
+            fi
+            sleep 0.3
+        done
+        debug "surface closed"
+        exit 0
+    fi
+    echo "edit-in-pane: cmux new-split returned no surface id, falling back" >&2
+fi
+
+exec "$editor" "$@"

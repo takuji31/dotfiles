@@ -57,19 +57,20 @@ if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then
 fi
 {{- end }}
 
-if command -v nvim >/dev/null 2>&1; then
+# EDITOR / VISUAL: CUI editors only. Prefer the edit-in-pane wrapper, which
+# splits the pane inside zellij / tmux / cmux and falls back to direct exec
+# outside any multiplexer. MY_CUI_EDITOR overrides the wrapper's editor choice.
+if command -v edit-in-pane >/dev/null 2>&1; then
+  export EDITOR=edit-in-pane
+elif command -v nvim >/dev/null 2>&1; then
   export EDITOR=nvim
-elif command -v zed >/dev/null 2>&1; then
-  export EDITOR="zed -w"
-elif command -v code >/dev/null 2>&1; then
-  export EDITOR="code -w"
+elif command -v hx >/dev/null 2>&1; then
+  export EDITOR=hx
+elif command -v vim >/dev/null 2>&1; then
+  export EDITOR=vim
 fi
 
-if command -v zed >/dev/null 2>&1; then
-  export VISUAL="zed -w"
-elif command -v code >/dev/null 2>&1; then
-  export VISUAL="code -w"
-elif [ -n "$EDITOR" ]; then
+if [ -n "$EDITOR" ]; then
   export VISUAL="$EDITOR"
 fi
 
