@@ -60,6 +60,7 @@
   "defaultPadding": " ",
   "inheritSeparatorColors": false,
   "globalBold": false,
+  "gitCacheTtlSeconds": 5,
   "minimalistMode": false,
   "powerline": {
     "enabled": true,
@@ -69,9 +70,13 @@
     "separatorInvertBackground": [
       false
     ],
-    "startCaps": [],
-    "endCaps": [],
-    "theme": "nord-aurora",
+    "startCaps": [
+      ""
+    ],
+    "endCaps": [
+      ""
+    ],
+    "theme": "catppuccin",
     "autoAlign": false,
     "continueThemeAcrossLines": false
   }
