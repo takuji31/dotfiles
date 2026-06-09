@@ -28,13 +28,6 @@ if set -q EDITOR
   set -x VISUAL $EDITOR
 end
 
-if command -q gh
-  set -l github_token (gh auth token </dev/null 2>/dev/null)
-  if test -n "$github_token"
-    set -x GITHUB_TOKEN "$github_token"
-  end
-end
-
 {{ if eq .chezmoi.os "darwin" -}}
 if test -f '/Users/takuji31/google-cloud-sdk/path.fish.inc'
   source '/Users/takuji31/google-cloud-sdk/path.fish.inc'
