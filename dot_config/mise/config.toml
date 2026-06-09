@@ -1,7 +1,6 @@
 [tools]
 node = "lts"
 go = "latest"
-ruby = "latest"
 rust = "latest"
 
 # CLI tools
@@ -35,7 +34,6 @@ ghq = "latest"
 "aqua:neovim/neovim" = "latest"
 zellij = "latest"
 tmux = "latest"
-"gem:tmuxinator" = "latest"
 "github:tree-sitter/tree-sitter" = "latest"
 "cargo:psmux" = { version = "latest", os = ["windows"] }
 "cargo:worktrunk" = { version = "latest", os = ["linux", "darwin"] }
