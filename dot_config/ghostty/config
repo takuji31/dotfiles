@@ -3,7 +3,7 @@ command = /opt/homebrew/bin/fish --login --interactive
 
 # Font
 font-family = Firge35Nerd Console
-font-size = 18
+font-size = 20
 
 # Theme (system appearance auto switch)
 theme = light:TokyoNight Day,dark:TokyoNight
@@ -17,10 +17,6 @@ unfocused-split-opacity = 0.85
 # Clipboard
 copy-on-select = clipboard
 
-# Cursor
-cursor-style = block
-cursor-style-blink = false
-
 # Window
 window-padding-x = 4
 window-padding-y = 4
@@ -28,3 +24,9 @@ window-padding-y = 4
 # Keyboard: treat Option as Alt so tmux/Zellij can receive Alt+key
 # (otherwise Option+i/h produce ˆ/˙ instead of sending Alt modifier)
 macos-option-as-alt = true
+
+background-opacity = 0.7
+background-blur = macos-glass-clear
+
+adjust-cursor-thickness = 400%
+adjust-cursor-height = 400%

@@ -12,6 +12,7 @@ opt.termguicolors = true
 opt.cursorline = true
 opt.scrolloff = 8
 opt.wrap = false
+opt.guicursor = "n-v-c-sm:block,i-ci-ve:hor20,r-cr-o:hor20,a:blinkon0"
 
 -- 編集
 opt.expandtab = true
