@@ -10,6 +10,9 @@
 {{- $cfg = $cfg | setValueAtPath "personality" "pragmatic" -}}
 {{- $cfg = $cfg | setValueAtPath "sandbox_mode" "workspace-write" -}}
 {{- $cfg = $cfg | setValueAtPath "sandbox_workspace_write.network_access" true -}}
+{{- /* AI エージェント配下の git / gh を takuji31ai アカウントに切り替える */ -}}
+{{- $cfg = $cfg | setValueAtPath "shell_environment_policy.set.GIT_CONFIG_GLOBAL" (printf "%s/.config/git/config-ai" .chezmoi.homeDir) -}}
+{{- $cfg = $cfg | setValueAtPath "shell_environment_policy.set.GH_CONFIG_DIR" (printf "%s/.config/gh-ai" .chezmoi.homeDir) -}}
 
 {{- $cfg = $cfg | setValueAtPath "features.memories" true -}}
 {{- $cfg = $cfg | setValueAtPath "features.workspace_dependencies" true -}}
