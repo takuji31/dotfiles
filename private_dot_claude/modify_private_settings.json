@@ -1,0 +1,11 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $cfg := dict -}}
+{{- if ne (.chezmoi.stdin | trim) "" -}}
+  {{- $cfg = fromJson .chezmoi.stdin -}}
+{{- end -}}
+
+{{- /* AI エージェント配下の git / gh を takuji31ai アカウントに切り替える */ -}}
+{{- $cfg = $cfg | setValueAtPath "env.GIT_CONFIG_GLOBAL" (printf "%s/.config/git/config-ai" .chezmoi.homeDir) -}}
+{{- $cfg = $cfg | setValueAtPath "env.GH_CONFIG_DIR" (printf "%s/.config/gh-ai" .chezmoi.homeDir) -}}
+
+{{- $cfg | toPrettyJson -}}
