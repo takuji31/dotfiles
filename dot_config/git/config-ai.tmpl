@@ -9,11 +9,11 @@
 [github]
     user = takuji31ai
 [core]
-{{ if eq .chezmoi.os "windows" -}}
+{{- if eq .chezmoi.os "windows" }}
     sshCommand = C:/Windows/System32/OpenSSH/ssh.exe -i ~/.ssh/id_ed25519_ai -o IdentitiesOnly=yes
-{{ else -}}
+{{- else }}
     sshCommand = ssh -i ~/.ssh/id_ed25519_ai -o IdentitiesOnly=yes
-{{ end -}}
+{{- end }}
 [credential "https://github.com"]
     ; keychain 等に入っている本人の資格情報をリセットして gh (GH_CONFIG_DIR=gh-ai) に委譲
     helper =
