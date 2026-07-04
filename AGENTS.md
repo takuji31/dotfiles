@@ -176,6 +176,25 @@ tmuxinator から起動した fish に対して tmux `send-keys` で送られた
 **bash セットアップ:**
 - 主にスクリプト互換と非対話シェル用途。`dot_bash_profile.tmpl` で mise / Homebrew / PATH / EDITOR / PAGER をまとめて設定
 
+### AI エージェント用 GitHub アカウント分離
+
+AI コーディングエージェント (Claude Code / Codex / Cursor) 配下の git / gh 操作は、専用アカウント
+`takuji31ai` で実行される。仕組みは環境変数 2 つだけ:
+
+- `GIT_CONFIG_GLOBAL=~/.config/git/config-ai`: `~/.gitconfig` を include しつつ user /
+  署名鍵 (`~/.ssh/id_ed25519_ai`) / sshCommand を上書きする AI 用 git 設定
+- `GH_CONFIG_DIR=~/.config/gh-ai`: gh の認証を takuji31ai に分離
+
+注入点: Claude Code は `~/.claude/settings.json` の `env` (`private_dot_claude/modify_private_settings.json`)、
+Codex は `shell_environment_policy.set` (`private_dot_codex/modify_config.toml`)、Cursor は `CURSOR_AGENT`
+環境変数をシェル起動時に検出する断片 (`dot_zsh/50-ai-agent.zsh` / `conf.d/50-ai-agent.fish` /
+`dot_bashrc.tmpl`)。ユーザー自身のシェルにはこの環境変数が無いため、手動の git / gh は従来通り
+takuji31 で動く。
+
+新しいマシンのセットアップ: `~/.ssh/id_ed25519_ai` を配置 (1Password から) し、
+`GH_CONFIG_DIR=$HOME/.config/gh-ai gh auth login` を実行する。設計の詳細は
+`docs/superpowers/specs/2026-07-04-ai-agent-git-account-design.md` を参照。
+
 ### ローカルカスタマイズパターン
 
 シェル/git ともリポジトリで追跡されないローカルカスタマイズファイルをサポートしています:
