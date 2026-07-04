@@ -1,0 +1,20 @@
+# AI エージェント用 git 設定。エージェントが GIT_CONFIG_GLOBAL でこのファイルを
+# 指定して読み込む。通常のシェルからの git は従来通り ~/.gitconfig を使う。
+[include]
+    path = ~/.gitconfig
+[user]
+    name = takuji31ai
+    email = 289154972+takuji31ai@users.noreply.github.com
+    signingkey = ~/.ssh/id_ed25519_ai.pub
+[github]
+    user = takuji31ai
+[core]
+{{ if eq .chezmoi.os "windows" -}}
+    sshCommand = C:/Windows/System32/OpenSSH/ssh.exe -i ~/.ssh/id_ed25519_ai -o IdentitiesOnly=yes
+{{ else -}}
+    sshCommand = ssh -i ~/.ssh/id_ed25519_ai -o IdentitiesOnly=yes
+{{ end -}}
+[credential "https://github.com"]
+    ; keychain 等に入っている本人の資格情報をリセットして gh (GH_CONFIG_DIR=gh-ai) に委譲
+    helper =
+    helper = !gh auth git-credential
