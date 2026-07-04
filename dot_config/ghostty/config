@@ -3,7 +3,7 @@ command = /opt/homebrew/bin/fish --login --interactive
 
 # Font
 font-family = Firge35Nerd Console
-font-size = 20
+font-size = 16
 
 # Theme (system appearance auto switch)
 theme = light:TokyoNight Day,dark:TokyoNight

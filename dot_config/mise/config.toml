@@ -52,6 +52,7 @@ sheldon = "latest"
 turso = "latest"
 glow = "latest"
 circleci = "latest"
+"npm:@playwright/cli" = "latest"
 
 [settings]
 auto_install = true
@@ -59,3 +60,6 @@ not_found_auto_install = false
 
 [settings.ruby]
 compile = true
+
+[settings.python]
+github_attestations = false
