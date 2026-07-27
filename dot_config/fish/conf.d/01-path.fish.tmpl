@@ -8,10 +8,7 @@ if test -d /home/linuxbrew/.linuxbrew/bin
 end
 {{- end }}
 
-if test -d "$HOME/.turso"
-    fish_add_path -g "$HOME/.turso"
-end
-
+fish_add_path -g "$HOME/.turso"
 fish_add_path -g /usr/local/bin
 fish_add_path -g $HOME/local/bin
 fish_add_path -g $HOME/.local/bin
@@ -20,5 +17,11 @@ fish_add_path -g $HOME/bin
 {{ if eq .chezmoi.os "darwin" -}}
 fish_add_path -g /usr/local/share/android-sdk/cmdline-tools/latest/bin
 fish_add_path -g /usr/local/share/android-sdk/platform-tools
+
+# keg-only な組み込み向けツールチェイン (AVR / ARM)
+fish_add_path -g /opt/homebrew/opt/avr-gcc@8/bin
+fish_add_path -g /opt/homebrew/opt/avr-binutils/bin
+fish_add_path -g /opt/homebrew/opt/arm-none-eabi-gcc@8/bin
+fish_add_path -g /opt/homebrew/opt/arm-none-eabi-binutils/bin
 {{- end }}
 
