@@ -1,4 +1,5 @@
 .config/fish/conf.d/zellij.fish
+.config/fish/conf.d/00-mise.fish
 .config/fish/conf.d/modern-tools.fish
 .config/fish/functions/peco_ghq.fish
 .config/fish/functions/peco_history.fish
