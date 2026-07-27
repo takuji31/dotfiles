@@ -5,7 +5,7 @@
 {{- end -}}
 
 {{- $cfg = $cfg | setValueAtPath "model" "gpt-5.5" -}}
-{{- $cfg = $cfg | setValueAtPath "model_auto_compact_token_limit" 167700 -}}
+{{- $_ := unset $cfg "model_auto_compact_token_limit" -}}
 {{- $cfg = $cfg | setValueAtPath "model_reasoning_effort" "high" -}}
 {{- $cfg = $cfg | setValueAtPath "personality" "pragmatic" -}}
 {{- $cfg = $cfg | setValueAtPath "sandbox_mode" "workspace-write" -}}
