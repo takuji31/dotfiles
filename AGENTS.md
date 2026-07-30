@@ -110,9 +110,8 @@ chezmoi は特殊なプレフィックス/サフィックスでファイルの�
 - `dot_config/ccstatusline/`: Claude Code 用ステータスライン設定
 
 **AI コーディングツール:**
-- `private_dot_claude/skills/`: Claude Code の skill 群 (`to-agents-md`, `wt-worktrees` など)
-- `.claude/settings.json`: このリポジトリ向けの Claude Code プロジェクト設定
-- `dot_codex/modify_config.toml`, `dot_codex/pets/`: Codex CLI 設定とペット定義
+- `~/.claude/`, `~/.codex/`, `~/.cursor/` などエージェント本体の設定は**このリポジトリでは管理していない**。private リポジトリ `git@github.com:takuji31/agents-config.git` に分離済み (後述)
+- `.claude/settings.json`: このリポジトリ向けの Claude Code プロジェクト設定 (これはリポジトリローカルなので分離対象外)
 
 **その他のツール:**
 - `dot_peco/`: peco (インタラクティブフィルタリングツール) 設定
@@ -133,6 +132,34 @@ chezmoi は特殊なプレフィックス/サフィックスでファイルの�
 - `chezmoi apply` で競合が発生した場合、`--force` で上書きしない。まず `chezmoi diff` で差分を確認し、ホーム側が正しければ `chezmoi re-add <ファイル>` で取り込む
 - OS ごとに設定ファイルのパスだけが違い、内容は同一でよい場合は、同じ内容のファイルをコピーして複数管理しない。共通の実体ファイルを 1 つ置き、OS 固有のパス側は `symlink_` で管理する
 - zsh / fish に同じツール統合を追加するときは、`dot_zsh/50-*.zsh` と `dot_config/fish/conf.d/50-*.fish` の両方に対になる断片を置く
+- AI エージェント設定 (`~/.claude/`, `~/.codex/`, `~/.cursor/` 配下) はこのリポジトリに追加しない。後述の `chezmoi-agents` を使う
+
+## AI エージェント設定の分離
+
+`~/.claude/` `~/.codex/` `~/.cursor/` の設定は private リポジトリ `git@github.com:takuji31/agents-config.git` で管理している。chezmoi は単一 source of truth が前提で複数 source を持てないため、**2 つ目の source dir を `--source` で指定して使う**構成にしている。
+
+- source dir: `~/.local/share/agents-config`
+- ラッパー: `chezmoi-agents` (fish: `dot_config/fish/functions/chezmoi-agents.fish`, zsh: `dot_zsh/40-helpers.zsh`)
+
+```bash
+chezmoi-agents apply                          # AI 設定を適用
+chezmoi-agents add ~/.claude/settings.json    # 追加・取り込み
+chezmoi-agents diff
+```
+
+新しいマシンでは本体と別に clone が要る:
+
+```bash
+git clone git@github.com:takuji31/agents-config.git ~/.local/share/agents-config
+chezmoi-agents apply
+```
+
+注意点:
+
+- `~/.claude` `~/.codex` `~/.cursor` は実行時の状態ファイル (`sessions/`, `projects/`, `*.sqlite`, `*.tmp-*`, ログ) だらけなので、ディレクトリ丸ごとではなく設定ファイル単位で `add` する
+- インストーラが入れた 3rd party の skill (`~/.claude/skills/*`, `~/.agents/skills/*`) は管理対象外。手書きのものだけ入れる
+- ホームディレクトリの絶対パスを含む設定 (`settings.json` の hook、`.cursor/hooks.json`) は `.tmpl` にして `{{ .chezmoi.homeDir }}` を使う
+- 認証情報 (`~/.claude.json`, `~/.coderabbit/auth.json` など) は private リポジトリであっても入れない
 
 ## 既知の落とし穴
 

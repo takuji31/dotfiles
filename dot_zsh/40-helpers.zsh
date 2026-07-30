@@ -3,6 +3,12 @@ claude-work() {
 }
 (( $+commands[claude] )) && compdef claude-work=claude 2>/dev/null
 
+# AI エージェント設定は private リポジトリ (agents-config) を別 source dir で管理
+chezmoi-agents() {
+    command chezmoi --source ~/.local/share/agents-config "$@"
+}
+(( $+commands[chezmoi] )) && compdef chezmoi-agents=chezmoi 2>/dev/null
+
 cleanup-branches() {
     if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
         echo "cleanup-branches: not inside a git repository" >&2
