@@ -1,0 +1,397 @@
+{
+    "machine_specific": { "krbn-b7d143c9-5135-4c25-b66b-96746112db18": { "external_editor_path": "/Applications/Zed.app" } },
+    "profiles": [
+        {
+            "complex_modifications": {
+                "rules": [
+                    {
+                        "description": "コマンドキーを単体で押したときに、英数・かなキーを送信する。（左コマンドキーは英数、右コマンドキーはかな） (rev 3)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 100 },
+                                "to": [
+                                    {
+                                        "key_code": "left_command",
+                                        "lazy": true
+                                    }
+                                ],
+                                "to_if_alone": [{ "key_code": "japanese_eisuu" }],
+                                "to_if_held_down": [{ "key_code": "left_command" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "right_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 100 },
+                                "to": [
+                                    {
+                                        "key_code": "right_command",
+                                        "lazy": true
+                                    }
+                                ],
+                                "to_if_alone": [{ "key_code": "japanese_kana" }],
+                                "to_if_held_down": [{ "key_code": "right_command" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Cmd単独で英数/かな + 右CmdシングルタップだけEnterで英数に戻す",
+                        "enabled": false,
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "expression": "rcmd_tap_expiration > system.now.milliseconds",
+                                        "type": "expression_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "right_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_command",
+                                        "lazy": true
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    { "key_code": "japanese_kana" },
+                                    {
+                                        "set_variable": {
+                                            "name": "jp_temp",
+                                            "value": 0
+                                        }
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "rcmd_tap_expiration",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "right_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_command",
+                                        "lazy": true
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    { "key_code": "japanese_kana" },
+                                    {
+                                        "set_variable": {
+                                            "name": "jp_temp",
+                                            "value": 1
+                                        }
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "expression": "system.now.milliseconds + 500",
+                                            "name": "rcmd_tap_expiration"
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "left_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_command",
+                                        "lazy": true
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    { "key_code": "japanese_eisuu" },
+                                    {
+                                        "set_variable": {
+                                            "name": "jp_temp",
+                                            "value": 0
+                                        }
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "rcmd_tap_expiration",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "jp_temp",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "return_or_enter",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    { "key_code": "return_or_enter" },
+                                    { "key_code": "japanese_eisuu" },
+                                    {
+                                        "set_variable": {
+                                            "name": "jp_temp",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Cmd単独で英数/かな + 右CmdダブルタップだけEnterで英数に戻す",
+                        "enabled": false,
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "expression": "rcmd_tap_expiration > system.now.milliseconds",
+                                        "type": "expression_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "right_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_command",
+                                        "lazy": true
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    { "key_code": "japanese_kana" },
+                                    {
+                                        "set_variable": {
+                                            "name": "jp_temp",
+                                            "value": 1
+                                        }
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "rcmd_tap_expiration",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "right_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_command",
+                                        "lazy": true
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    { "key_code": "japanese_kana" },
+                                    {
+                                        "set_variable": {
+                                            "expression": "system.now.milliseconds + 500",
+                                            "name": "rcmd_tap_expiration"
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "left_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_command",
+                                        "lazy": true
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    { "key_code": "japanese_eisuu" },
+                                    {
+                                        "set_variable": {
+                                            "name": "jp_temp",
+                                            "value": 0
+                                        }
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "rcmd_tap_expiration",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "jp_temp",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "return_or_enter",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    { "key_code": "return_or_enter" },
+                                    { "key_code": "japanese_eisuu" },
+                                    {
+                                        "set_variable": {
+                                            "name": "jp_temp",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "右コマンドキーを、英数・かなのトグルに変更する",
+                        "enabled": false,
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "input_sources": [{ "language": "ja" }],
+                                        "type": "input_source_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "right_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "japanese_eisuu" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "input_sources": [{ "language": "en" }],
+                                        "type": "input_source_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "right_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "japanese_kana" }],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "devices": [
+                {
+                    "identifiers": { "is_keyboard": true },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "caps_lock" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "key_code": "caps_lock" }]
+                        }
+                    ]
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 18,
+                        "vendor_id": 13807
+                    },
+                    "ignore": false,
+                    "ignore_vendor_events": true
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 24926,
+                        "vendor_id": 7504
+                    },
+                    "ignore": false,
+                    "ignore_vendor_events": true,
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "key_code": "left_command" }]
+                        },
+                        {
+                            "from": { "key_code": "right_command" },
+                            "to": [{ "key_code": "right_control" }]
+                        },
+                        {
+                            "from": { "key_code": "right_control" },
+                            "to": [{ "key_code": "left_command" }]
+                        }
+                    ]
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 1024,
+                        "vendor_id": 22871
+                    },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "key_code": "left_command" }]
+                        },
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "key_code": "right_control" },
+                            "to": [{ "key_code": "right_command" }]
+                        },
+                        {
+                            "from": { "key_code": "right_command" },
+                            "to": [{ "key_code": "right_control" }]
+                        }
+                    ]
+                }
+            ],
+            "name": "Default profile",
+            "selected": true,
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+        }
+    ]
+}
