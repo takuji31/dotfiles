@@ -1,0 +1,17 @@
+[Unit]
+Description=Herdr headless server
+Documentation=https://herdr.dev/docs/
+After=network.target
+
+[Service]
+Type=simple
+# systemd user セッションには SHELL が無いため明示 (無いとペインが /bin/sh になる)
+Environment=SHELL=/usr/bin/fish
+ExecStart=%h/.local/bin/herdr server
+ExecReload=%h/.local/bin/herdr server reload-config
+ExecStop=%h/.local/bin/herdr server stop
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
