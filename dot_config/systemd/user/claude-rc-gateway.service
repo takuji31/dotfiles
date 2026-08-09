@@ -1,0 +1,15 @@
+[Unit]
+Description=Claude Code Remote Control gateway (server mode)
+Documentation=https://code.claude.com/docs/en/remote-control
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/projects/github.com/takuji31/a-train-manager
+ExecStart=%h/.local/bin/claude remote-control --spawn worktree --remote-control-session-name-prefix VPS-atm --no-create-session-in-dir
+# ネットワーク断が 10 分を超えるとプロセスは自力で exit する仕様のため常時再起動
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=default.target
