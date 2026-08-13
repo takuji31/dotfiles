@@ -9,3 +9,6 @@ OneDrive/ドキュメント/PowerShell/
 {{ if ne .chezmoi.os "darwin" }}
 .Brewfile
 {{ end }}
+{{ if ne .chezmoi.os "linux" }}
+.config/systemd/
+{{ end }}
