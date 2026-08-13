@@ -52,6 +52,11 @@ zstyle ':completion:*:default' menu select=1
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
 
+# zsh plugins (sheldon) — must precede compinit so plugin fpath additions are picked up
+if command -v sheldon >/dev/null 2>&1; then
+    eval "$(sheldon source)"
+fi
+
 autoload -Uz compinit
 compinit
 

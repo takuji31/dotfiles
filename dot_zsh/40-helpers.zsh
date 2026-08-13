@@ -1,8 +1,3 @@
-claude-work() {
-    CLAUDE_CONFIG_DIR=~/.claude-work command claude "$@"
-}
-(( $+commands[claude] )) && compdef claude-work=claude 2>/dev/null
-
 # AI エージェント設定は private リポジトリ (agents-config) を別 source dir で管理
 chezmoi-agents() {
     command chezmoi --source ~/.local/share/agents-config "$@"

@@ -75,7 +75,7 @@ chezmoi は特殊なプレフィックス/サフィックスでファイルの�
 **シェル設定 (fish):**
 - `dot_config/fish/config.fish.tmpl`: ロケール・EDITOR・PAGER・starship 初期化・ローカル設定読み込み
 - `dot_config/fish/conf.d/`: 番号プレフィックス + 機能名でモジュール化された fish 断片 (zsh と対になる構成)
-- `dot_config/fish/functions/`: カスタム関数 (ls / la / ll / lt / cat などモダン CLI ラッパー、`wt.fish.tmpl`、`cleanup-branches.fish`、`claude-work.fish` など)
+- `dot_config/fish/functions/`: カスタム関数 (ls / la / ll / lt / cat などモダン CLI ラッパー、`wt.fish.tmpl`、`cleanup-branches.fish` など)
 - `dot_config/fish/completions/`: 静的補完スクリプト (`git-spice.fish` など、後述の落とし穴対策)
 
 **シェル設定 (bash):**
@@ -104,7 +104,7 @@ chezmoi は特殊なプレフィックス/サフィックスでファイルの�
 **エディタ / ツール:**
 - `dot_config/nvim/`: Neovim 設定
 - `dot_config/mise/config.toml`: mise によるツールバージョン管理
-- `dot_config/sheldon/plugins.toml`: zsh プラグインマネージャ sheldon の設定
+- `dot_config/sheldon/plugins.toml`: zsh プラグインマネージャ sheldon の設定。`dot_zshrc.tmpl` の compinit 直前で `eval "$(sheldon source)"` して読み込む。現在は `zsh-abbr` (fish 風 abbreviation) のみ管理
 - `dot_config/zellij/`, `dot_config/yazi/`, `dot_config/nushell/`: それぞれのツール設定
 - `dot_config/worktrunk/config.toml`: worktrunk (`wt`) の設定
 - `dot_config/ccstatusline/`: Claude Code 用ステータスライン設定
@@ -132,6 +132,7 @@ chezmoi は特殊なプレフィックス/サフィックスでファイルの�
 - `chezmoi apply` で競合が発生した場合、`--force` で上書きしない。まず `chezmoi diff` で差分を確認し、ホーム側が正しければ `chezmoi re-add <ファイル>` で取り込む
 - OS ごとに設定ファイルのパスだけが違い、内容は同一でよい場合は、同じ内容のファイルをコピーして複数管理しない。共通の実体ファイルを 1 つ置き、OS 固有のパス側は `symlink_` で管理する
 - zsh / fish に同じツール統合を追加するときは、`dot_zsh/50-*.zsh` と `dot_config/fish/conf.d/50-*.fish` の両方に対になる断片を置く
+- 短縮コマンドは alias より abbr を優先する。fish は `abbr -a`、zsh は zsh-abbr の `abbr -S -q -f` を使う (`-S` はストアファイルに書かない session scope、`-f` は再 source 時のエラー回避に必須)
 - AI エージェント設定 (`~/.claude/`, `~/.codex/`, `~/.cursor/` 配下) はこのリポジトリに追加しない。後述の `chezmoi-agents` を使う
 
 ## AI エージェント設定の分離

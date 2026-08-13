@@ -14,7 +14,8 @@ shell = "zsh"
 
 [plugins]
 
-# For example:
-#
-# [plugins.base16]
-# github = "chriskempson/base16-shell"
+# fish 風の abbreviation。`use` は不要 (default match の第1パターンが
+# zsh-abbr.plugin.zsh に当たる)。`use = ["*.zsh"]` にすると fpath 行を
+# 飛ばすので指定しないこと。accept-line を再定義するので後ろに置く。
+[plugins.zsh-abbr]
+github = "olets/zsh-abbr"
