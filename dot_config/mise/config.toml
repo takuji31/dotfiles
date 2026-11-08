@@ -48,7 +48,7 @@ codex = "latest"
 python = "latest"
 ffmpeg = "latest"
 sheldon = "latest"
-turso = "latest"
+turso = { version = "latest", os = ["linux", "darwin"] }
 glow = "latest"
 circleci = "latest"
 "npm:@playwright/cli" = "latest"
