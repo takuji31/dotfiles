@@ -82,6 +82,10 @@ chezmoi は特殊なプレフィックス/サフィックスでファイルの�
 - `dot_bash_profile.tmpl`: ログイン用。Homebrew / mise / PATH / EDITOR / PAGER などを設定し、最後に `.bashrc` を読み込む
 - `dot_bashrc.tmpl`: 対話シェル用
 
+**シェル設定 (PowerShell 7, Windows のみ):**
+- `dot_config/powershell/init.ps1`: 実体。`profile.d/*.ps1` を番号順に読み込む
+- `readonly_OneDrive/readonly_ドキュメント/readonly_PowerShell/Microsoft.PowerShell_profile.ps1`: `init.ps1` を読むだけのエントリーポイント。OneDrive の同期競合コピー (`*-<PC名>.ps1`) を避けるため、OneDrive 側には設定を置かない
+
 **ターミナルマルチプレクサ:**
 - `dot_tmux.conf`: screen 風のキーバインドを持つ tmux 設定（プレフィックス: Ctrl-Z）
 - `dot_tmuxinator/`: tmuxinator セッション定義 (`circle-manager.yml` など)
