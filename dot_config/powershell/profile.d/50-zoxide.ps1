@@ -1,3 +1,1 @@
-if (Get-Command zoxide -ErrorAction SilentlyContinue) {
-    zoxide init powershell | Out-String | Invoke-Expression
-}
+Import-CachedInit zoxide @('init', 'powershell')
