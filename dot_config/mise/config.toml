@@ -37,7 +37,6 @@ zellij = "latest"
 "cargo:psmux" = { version = "latest", os = ["windows"] }
 bun = "latest"
 pnpm = "latest"
-"aqua:noborus/ov" = "latest"
 "aqua:walles/moor" = "latest"
 python = "3.15"
 sheldon = "latest"
