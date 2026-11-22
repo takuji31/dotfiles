@@ -53,10 +53,14 @@ turso = { version = "latest", os = ["linux", "darwin"] }
 glow = "latest"
 circleci = "latest"
 "npm:@playwright/cli" = "latest"
+"npm:@astryxdesign/cli" = "latest"
 
 [settings]
 auto_install = true
 not_found_auto_install = false
+
+[settings.npm]
+package_manager = "npm"
 
 [settings.ruby]
 compile = true
