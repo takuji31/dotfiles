@@ -20,4 +20,3 @@ if ($setupIssue) {
     Write-Host ''
 }
 
-if (Get-Command git-wt -ErrorAction SilentlyContinue) { Invoke-Expression (& git-wt config shell init powershell | Out-String) }

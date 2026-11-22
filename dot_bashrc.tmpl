@@ -21,9 +21,6 @@ fi
 if command -v atuin >/dev/null 2>&1; then
   eval "$(atuin init bash --disable-up-arrow)"
 fi
-if command -v git-spice >/dev/null 2>&1; then
-  alias gs=git-spice
-fi
 if command -v zellij >/dev/null 2>&1; then
   alias zj="zellij"
   alias za="zellij attach"
@@ -36,10 +33,5 @@ if command -v claude >/dev/null 2>&1; then
   alias sonnet='claude --model sonnet --settings '"'"'{"advisorModel":"opus"}'"'"''
 fi
 
-{{ if eq .chezmoi.os "windows" -}}
-if command -v git-wt >/dev/null 2>&1; then eval "$(command git-wt config shell init bash)"; fi
-{{ else -}}
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init bash)"; fi
-{{ end -}}
 
 [ -e "$HOME/.bashrc_local" ] && . "$HOME/.bashrc_local"

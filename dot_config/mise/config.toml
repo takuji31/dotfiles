@@ -14,7 +14,7 @@ zoxide = "latest"
 sd = "latest"
 jnv = "latest"
 btop = { version = "latest", os = ["linux"] }
-"cargo:du-dust" = "latest"
+"aqua:bootandy/dust" = "latest"
 duf = "latest"
 "github:dalance/procs" = "latest"
 delta = "latest"
@@ -23,10 +23,9 @@ doggo = "latest"
 "aqua:fujiapple852/trippy" = "latest"
 "github:tldr-pages/tlrc" = "latest"
 "github:sharkdp/hyperfine" = "latest"
-"cargo:navi" = "latest"
+"aqua:denisidoro/navi" = "latest"
 atuin = "latest"
 lazygit = "latest"
-jj = "latest"
 gh = "latest"
 yazi = "latest"
 starship = "latest"
@@ -34,25 +33,15 @@ nushell = "latest"
 ghq = "latest"
 "aqua:neovim/neovim" = "latest"
 zellij = "latest"
-tmux = "latest"
 "github:tree-sitter/tree-sitter" = "latest"
 "cargo:psmux" = { version = "latest", os = ["windows"] }
-"cargo:worktrunk" = { version = "latest", os = ["linux", "darwin"] }
-claude-squad = "latest"
-"github:asheshgoplani/agent-deck" = { version = "latest", os = ["linux", "darwin"] }
 bun = "latest"
 pnpm = "latest"
-codex = "latest"
-"github:abhinav/git-spice" = "latest"
 "aqua:noborus/ov" = "latest"
 "aqua:walles/moor" = "latest"
-python = "latest"
-ffmpeg = "latest"
+python = "3.15"
 sheldon = "latest"
-turso = { version = "latest", os = ["linux", "darwin"] }
 glow = "latest"
-circleci = "latest"
-"npm:@playwright/cli" = "latest"
 "npm:@astryxdesign/cli" = "latest"
 
 [settings]
@@ -61,9 +50,6 @@ not_found_auto_install = false
 
 [settings.npm]
 package_manager = "npm"
-
-[settings.ruby]
-compile = true
 
 [settings.python]
 github_attestations = false

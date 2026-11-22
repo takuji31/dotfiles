@@ -68,15 +68,14 @@ chezmoi は特殊なプレフィックス/サフィックスでファイルの�
   - `20-alias.zsh`: 共通エイリアス
   - `30-modern-cli.zsh`: eza / bat / duf / dust / procs / btop / lazygit などモダン CLI のラッパー（未導入時は元コマンドにフォールバック）
   - `40-helpers.zsh`: 補助関数
-  - `50-*.zsh`: 個別ツール統合 (bat / fzf / git-spice / navi / ripgrep / zellij / zoxide)
+  - `50-*.zsh`: 個別ツール統合 (bat / fzf / navi / ripgrep / zellij / zoxide)
   - `90-atuin.zsh`: atuin 履歴
   - `95-prompt.zsh`: starship プロンプト
 
 **シェル設定 (fish):**
 - `dot_config/fish/config.fish.tmpl`: ロケール・EDITOR・PAGER・starship 初期化・ローカル設定読み込み
 - `dot_config/fish/conf.d/`: 番号プレフィックス + 機能名でモジュール化された fish 断片 (zsh と対になる構成)
-- `dot_config/fish/functions/`: カスタム関数 (ls / la / ll / lt / cat などモダン CLI ラッパー、`wt.fish.tmpl`、`cleanup-branches.fish` など)
-- `dot_config/fish/completions/`: 静的補完スクリプト (`git-spice.fish` など、後述の落とし穴対策)
+- `dot_config/fish/functions/`: カスタム関数 (ls / la / ll / lt / cat などモダン CLI ラッパー、`cleanup-branches.fish` など)
 
 **シェル設定 (bash):**
 - `dot_bash_profile.tmpl`: ログイン用。Homebrew / mise / PATH / EDITOR / PAGER などを設定し、最後に `.bashrc` を読み込む
@@ -110,7 +109,6 @@ chezmoi は特殊なプレフィックス/サフィックスでファイルの�
 - `dot_config/mise/config.toml`: mise によるツールバージョン管理
 - `dot_config/sheldon/plugins.toml`: zsh プラグインマネージャ sheldon の設定。`dot_zshrc.tmpl` の compinit 直前で `eval "$(sheldon source)"` して読み込む。現在は `zsh-abbr` (fish 風 abbreviation) のみ管理
 - `dot_config/zellij/`, `dot_config/yazi/`, `dot_config/nushell/`: それぞれのツール設定
-- `dot_config/worktrunk/config.toml`: worktrunk (`wt`) の設定
 - `dot_config/ccstatusline/`: Claude Code 用ステータスライン設定
 
 **AI コーディングツール:**
@@ -128,7 +126,7 @@ chezmoi は特殊なプレフィックス/サフィックスでファイルの�
 
 - `{{ if eq .chezmoi.os "darwin" }}`: macOS 固有（Homebrew on `/opt/homebrew`、Android SDK、google-cloud-sdk など）
 - `{{ if eq .chezmoi.os "linux" }}` + `.chezmoi.kernel.osrelease` の `microsoft` 判定: WSL 固有
-- `{{ if eq .chezmoi.os "windows" }}`: Windows 固有（`git-wt`、`AppData/Local/Microsoft/WinGet/Links` PATH、ssh-keygen.exe など）
+- `{{ if eq .chezmoi.os "windows" }}`: Windows 固有（`AppData/Local/Microsoft/WinGet/Links` PATH、ssh-keygen.exe など）
 
 ## 作業ルール
 
@@ -166,22 +164,6 @@ chezmoi-agents apply
 - ホームディレクトリの絶対パスを含む設定 (`settings.json` の hook、`.cursor/hooks.json`) は `.tmpl` にして `{{ .chezmoi.homeDir }}` を使う
 - 認証情報 (`~/.claude.json`, `~/.coderabbit/auth.json` など) は private リポジトリであっても入れない
 
-## 既知の落とし穴
-
-### fish conf.d の subprocess が stdin を食う問題
-
-tmuxinator から起動した fish に対して tmux `send-keys` で送られたコマンドが実行されない事象が起きた場合、**fish の起動中に走る subprocess が pty の stdin に溜まっていた入力を吸い込んでいる**ことを疑う。
-
-- 典型例: `git-spice shell completion fish | source`
-  - git-spice は起動時に OSC 11 (背景色クエリ) / DA1 (Device Attributes) を書き込み、端末からの応答を stdin から読もうとする
-  - tmuxinator が事前に `send-keys` で pty に流し込んだ `claude\n` 等を応答と誤認して消費する
-  - 結果: fish のプロンプトは出るがコマンドが実行されない
-- fish 4.x の挙動・tmux 3.6 の挙動・mise のインストールチェックはいずれも無罪 (検証済み)
-- **対策**: 動的生成していた完了スクリプトを `dot_config/fish/completions/` に静的ファイルとして置き、conf.d からは `alias` 定義のみ残す (`git-spice` は実際この方針で対応済み)
-- **予防**: `cmd | source` 系を conf.d に追加する際は `cmd < /dev/null | source` にして subprocess の stdin を切断する。これで将来どんなツールが入ってきても同種の事故を防げる
-  - zsh 側も同様で、`dot_zsh/50-git-spice.zsh` では `eval "$(git-spice shell completion zsh </dev/null)"` のように stdin を切っている
-- 検証方法: pty に pre-load したバイト列を subprocess が吸い込むかを Python `pty.fork()` で再現できる
-
 ## アーキテクチャに関する注意事項
 
 ### シェル環境のセットアップ
@@ -199,7 +181,6 @@ tmuxinator から起動した fish に対して tmux `send-keys` で送られた
 - `dot_zshenv` がログイン全体に効く基本環境を設定し、`dot_zshrc.tmpl` が対話シェル設定を行う
 - `~/.zsh/*.zsh` を順番に読み込むモジュラー構成 (番号順)
 - tmux 互換のための SSH エージェントソケット管理を `dot_zshrc.tmpl` 内で実施
-- worktrunk (`wt`) のシェル初期化を末尾で読み込み
 
 **fish セットアップ:**
 - PATH は `fish_add_path` で管理、ツール毎の有効化は `conf.d/` 配下に分割

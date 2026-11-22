@@ -37,3 +37,9 @@
 .zsh/02_function.zsh
 .zsh/03_prompt.zsh
 .zsh/50_git-spice.zsh
+.zsh/50-git-spice.zsh
+.config/fish/conf.d/50-git-spice.fish
+.config/fish/completions/git-spice.fish
+.config/fish/functions/wt.fish
+.config/worktrunk
+AppData/Roaming/worktrunk
