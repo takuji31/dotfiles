@@ -12,4 +12,5 @@ OneDrive/ドキュメント/PowerShell/
 {{ end }}
 {{ if ne .chezmoi.os "linux" }}
 .config/systemd/
+.local/bin/orca-server-update
 {{ end }}

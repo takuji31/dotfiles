@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Update the server-only Orca install (orcad) and restart its systemd user service.
+# The server-only build has no in-app updater, so paired clients cannot update it:
+# https://github.com/stablyai/orca/blob/main/docs/site/content/docs/remote-servers.mdx
+#
+# Usage: orca-server-update [<version>]   (default: latest release)
+set -euo pipefail
+
+repo=https://github.com/stablyai/orca
+opt_dir=$HOME/.local/opt
+link=$opt_dir/orca-server
+service=orca-serve.service
+
+arch=$(uname -m | sed 's/x86_64/x64/; s/aarch64/arm64/')
+asset=orca-server-linux-$arch.tar.gz
+
+if [ $# -ge 1 ]; then
+  version=${1#v}
+else
+  latest_url=$(curl -fsSLo /dev/null -w '%{url_effective}' "$repo/releases/latest")
+  version=${latest_url##*/v}
+fi
+[[ $version =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "invalid version: $version" >&2; exit 1; }
+
+current=$(sed -n 's/^orca //p' "$link/VERSION" 2>/dev/null || true)
+if [ "$current" = "$version" ]; then
+  echo "orca-server $version is already installed"
+  exit 0
+fi
+echo "updating orca-server ${current:-(none)} -> $version"
+
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+base=$repo/releases/download/v$version
+curl -fsSL -o "$tmp/$asset" "$base/$asset"
+curl -fsSL -o "$tmp/sha256sums.txt" "$base/orca-server-sha256sums.txt"
+# Why: --ignore-missing alone passes when the asset has no line in the sums file.
+grep -q " \*\?$asset\$" "$tmp/sha256sums.txt" || { echo "no checksum for $asset" >&2; exit 1; }
+(cd "$tmp" && sha256sum --check --ignore-missing sha256sums.txt)
+
+dest=$opt_dir/orca-server-$version
+rm -rf "$dest.partial"
+mkdir -p "$dest.partial"
+tar -xzf "$tmp/$asset" -C "$dest.partial" --strip-components=1
+rm -rf "$dest"
+mv "$dest.partial" "$dest"
+
+ln -sfn "$dest" "$link.new"
+mv -T "$link.new" "$link"
+
+systemctl --user restart "$service"
+sleep 3
+systemctl --user is-active --quiet "$service" || {
+  echo "$service is not active; roll back with: orca-server-update $current" >&2
+  exit 1
+}
+
+# Why keep the previous one: the terminal daemon survives a serve restart and still runs from it.
+for dir in "$opt_dir"/orca-server-*; do
+  case ${dir##*/orca-server-} in
+    "$version" | "$current") ;;
+    *) rm -rf "$dir" ;;
+  esac
+done
+
+echo "orca-server $version is running"
